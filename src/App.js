@@ -6,6 +6,10 @@ import { NavBar, Footer, Loading, PrivateRoute } from "./components";
 import { Home, Profile, AboutUs, ContactUs } from "./views";
 import "./App.css";
 import "./index.css";
+import requests from "./requests";
+import Row from "./components/row/Row";
+import Banner from "./components/banner/Banner";
+
 
 
 
@@ -17,17 +21,25 @@ const App = () => {
   }
 
   return (
-    <div id="app" className="d-flex flex-column h-100 ">
+    <div className="app">
       <NavBar />
-      <Container className= "flex-grow-1 mt-5 ">
+      <Container fluid>
         <Switch>
           <Route path="/" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/about-us" exact component={AboutUs} />
           <Route path="/contact-us" exact component={ContactUs} />
         </Switch>
+        <Banner />
+        <Row title="Trending Now" fetchURL={requests.fetchTrending} isLargeRow/>
+        <Row title="Family Movies" fetchURL={requests.fetchFamily} isLargeRow />
+        <Row title="Top Rated" fetchURL={requests.fetchTopRated} isLargeRow/>
+        <Row title="Action Movies" fetchURL={requests.fetchActionMovies} isLargeRow/>
+        <Row title="Comedy Movies" fetchURL={requests.fetchComedyMovies} isLargeRow/>
+        <Row title="Horror Movies" fetchURL={requests.fetchHorrorMovies} isLargeRow/>
       </Container>
       <Footer />
+      
     </div>
   );
 };
