@@ -1,12 +1,14 @@
 import React from "react";
 import { Container, Row } from "react-bootstrap";
+import "../App.css";
+
 
 
 const ContactUs = () => {
   
   return (
-    <Container className="mb-5">
-      <Row className="align-items-center profile-header mb-5 text-center text-md-left"></Row>
+    <Container fluid className="mb-5">
+      <Row className="align-items-center profile-header mb-5 text-center text-md-left contactus" style={{backgroundColor: "white"}}></Row>
       <h1>Contact Information</h1>
       <ul>
           <li> Kimberly Crevecoeur : krcrevec@iu.edu </li>

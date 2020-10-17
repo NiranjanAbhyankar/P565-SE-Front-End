@@ -1,11 +1,21 @@
 * {
   margin: 0;
+  
 }
 
-.app{
-  background-color: #111111;
+.home{
+  background-color: black;
+  width: 100%;
 }
 
 .footer{
   height: 10px;
+}
+
+.contactus{
+  background-color: white;
+}
+
+.app{
+  background-color: white;
 }
