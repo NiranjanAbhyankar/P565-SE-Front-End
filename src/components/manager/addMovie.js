@@ -1,70 +1,76 @@
 import React, { Component } from "react";
-import SearchBox from "../Search/search-box.js";
-//import Row from "../row/SearchRow";
-export default class AddShowing extends React.Component {
-    
+class AddMovie extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = {value: ''};
-    
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-      }
-    
-      handleChange(event) {
-        this.setState({value: event.target.value});
-      }
-    
-      handleSubmit(event) {
-        alert('A showing was added: ' + this.state.value);
-        event.preventDefault();
-      }
-    
-      render() {
-          //https://api.themoviedb.org/3/search/movie?api_key=d73ffca3a2d08b6870b16763c14c058b&query=batman
-        const url = "https://api.themoviedb.org/3/search/movie?api_key=d73ffca3a2d08b6870b16763c14c058b"
-        var searchURL = "";
-        return (
+      super(props);
+      this.state = {
+        tmdbid: "155",
+        numberOfGuests: 2
+      };
+  
+      this.handleInputChange = this.handleInputChange.bind(this);
+    }
+  
+    handleInputChange(event) {
+      const target = event.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+  
+      this.setState({
+        [name]: value
+      });
+    }
+  
+    render() {
 
-            <div>
-            <SearchBox placeholder ="Enter movie name..." 
-        handleChange = {
-          (e) => {
-            if (e.key==='Enter'){
-              const newUrl = url +'&query=' + e.target.value
-              searchURL = newUrl
-              fetch(newUrl)
-              .then((res) => res.json())
-              .then((data) =>{
-                const results = data.Search
-                console.log("Data", results)
-              })
-              .catch((error) => {
-                console.log("Error",error)
-              })
-            }    
+
+/*
+        var array = [
+        { "tmdbid": 807,
+            "name": "",
+            "description": "",
+            "year": 0,
+            "posterurl": ""
+        }] */
+
+    var array = [
+        { "tmdbid": 807,
+          "name": "Se7en",
+          "description": "Two homicide detectives are on a desperate hunt for a serial killer whose crimes are based on the \"seven deadly sins\" in this dark and haunting film that takes viewers from the tortured remains of one victim to the next. The seasoned Det. Sommerset researches each sin in an effort to get inside the killers mind, while his novice partner, Mills, scoffs at his efforts to unravel the case.",
+          "year": 1995,
+          "posterurl": "GQP6noTBKsYiAYyn8PYXFcsSgH.jpg"
         }
-        }/>
+      ];
 
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://silo.soic.indiana.edu:29102/api/movies", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(array));
 
-        <br/>
-            <h3>Movie would be chosen on screen and then you are taken to this form</h3>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Room:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
-            </label>
-            <label>
-              datetime:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
-            </label>
-            <label>
-              duration:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
-            </label>
-            <input type="submit" value="Submit" />
-          </form>
-          </div>
-        );
-      }
-}
+      
+    console.log(array);
+
+      return (
+        <form>
+          <label>
+            TMBD ID:
+            <input
+              name="tmdbid"
+              type="text"
+              checked={this.state.isGoing}
+              onChange={this.handleInputChange} />
+          </label>
+          <br />
+          <label>
+            Number of guests:
+            <input
+              name="numberOfGuests"
+              type="number"
+              value={this.state.numberOfGuests}
+              onChange={this.handleInputChange} />
+          </label>
+        </form>
+      );
+    }
+  }
+
+  export default AddMovie;
