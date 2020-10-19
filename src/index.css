@@ -6,9 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: scroll;
-  max-width: 100%;
-  
+  overflow-y: scroll; 
 }
 
 code {
@@ -16,8 +14,5 @@ code {
     monospace;
 }
 
-.hero{
-  width: max-content;
-  background-color: tomato;
-}
+
 

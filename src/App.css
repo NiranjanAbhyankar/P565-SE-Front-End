@@ -1,21 +1,10 @@
 * {
-  margin: 0;
-  
+  margin: 100;
 }
 
-.home{
+/* .home{
   background-color: black;
-  width: 100%;
-}
+} */
 
-.footer{
-  height: 10px;
-}
 
-.contactus{
-  background-color: white;
-}
 
-.app{
-  background-color: white;
-}

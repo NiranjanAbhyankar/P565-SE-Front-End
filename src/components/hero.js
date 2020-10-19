@@ -9,7 +9,7 @@ import Row from "./row/Row";
 
 const Hero = () => {  
   return (
-    <Container fluid className="hero">
+    <Container fluid >
       <Banner />
       <Row title="Trending Now" fetchURL={requests.fetchTrending} isLargeRow/>
       <Row title="Family Movies" fetchURL={requests.fetchFamily} isLargeRow />

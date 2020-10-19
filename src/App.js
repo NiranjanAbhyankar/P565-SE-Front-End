@@ -21,6 +21,7 @@ const App = () => {
       <NavBar />
       <Container fluid>
         <Switch>
+          <Route path="/" exact component={Home} />
           <Route path="/home" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/about-us" exact component={AboutUs} />

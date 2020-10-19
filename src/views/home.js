@@ -7,7 +7,7 @@ import "../App.css";
 
 const Home = () => {
   return(
-    <Container  className="home" >
+    <Container fluid  className="home" >
       <Hero />
     </Container>
   )
