@@ -3,6 +3,8 @@ import axios from "../../axios";
 import "./Row.css";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
+import Poster from "./Poster"
+import Popup from "./Popup"
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
@@ -10,6 +12,8 @@ const base_url = "https://image.tmdb.org/t/p/original/";
 function Row({ title, fetchURL, isLargeRow }) {
   // Destructuring and hooks
   const [movies, setMovies] = useState([]);
+  const [selected, setSelected] = useState(undefined);
+
   const [trailerUrl, setTrailerUrl] = useState("");
 
   // A snippet of code which rans based on a specific condition/variable
@@ -35,9 +39,18 @@ function Row({ title, fetchURL, isLargeRow }) {
     },
   };
 
+  // when you click on a poster
   const handleClick = (movie) => {
     console.log(movie);
-    if (trailerUrl) {
+    title = (movie.name? movie.name : movie.title);
+    
+    setSelected(() => {
+      return movie
+    });   
+   // alert(title);
+
+ 
+    /*if (trailerUrl) {
       setTrailerUrl("");
     } else {
       movieTrailer(movie?.name || "")
@@ -47,7 +60,12 @@ function Row({ title, fetchURL, isLargeRow }) {
         })
         .catch((error) => console.log(error));
     }
+    */
   };
+// to close the popup
+  const closePopup = () => {
+    setSelected(undefined);
+  }
 
   return (
     <div className="row">
@@ -56,20 +74,15 @@ function Row({ title, fetchURL, isLargeRow }) {
       <div className="row_posters">
         {/* several row_poster(s) */}
         {movies.map((movie) => (
-          <img
-            className={`row_poster ${isLargeRow && "row_posterLarge"}`}
-            key={movie.id}
-            onClick={() => handleClick(movie)}
-            src={`${base_url}${
-              isLargeRow ? movie.poster_path : movie?.backdrop_path
-            }`}
-            alt={movie.name}
-          />
+         <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>
         ))}
       </div>
       {trailerUrl && (
         <YouTube className="video_container" videoId={trailerUrl} opts={opts} />
       )}
+{/*if selected is NOT undefined (there is something selected), then a popup will open */}
+<Popup baseUrl= {base_url} selected={selected} open = {typeof selected != "undefined"} handleClose={closePopup} /> 
+
     </div>
   );
 }
