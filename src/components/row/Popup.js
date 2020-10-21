@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import ViewFormsButton from './ViewFormsButton';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 const useStyles = makeStyles({
@@ -22,6 +24,8 @@ const useStyles = makeStyles({
 
 export default function Popup({ selected, handleClose, open, baseUrl, viewForm, closeForm }) {
   const classes = useStyles();
+  const { isAuthenticated } =useAuth0();
+
 
   return (
       selected  ?
@@ -43,11 +47,12 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <ViewFormsButton 
+        {isAuthenticated ? <ViewFormsButton 
         selectedMovie = {selected}
         viewForm = {viewForm}
         closeForm = {closeForm}
-        />
+        /> : <Button onClick = {()=>alert("Please log in to purchase ticksts")}>Log in</Button>}
+        
         <Button size="small" color="primary" onClick={handleClose}>
           Close
         </Button>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import FormUserDetails from './FormUserDetails';
-import FormPersonalDetails from './FormPersonalDetails';
+import Concessions from './Concessions';
 import Confirm from './Confirm';
 import Success from './Success';
 import axios from "axios";
@@ -15,8 +15,9 @@ export class UserForm extends Component {
   state = {
     step: 1,
     theaterInfo: [],
+    showings: [],
     title:this.props.selectedMovie.title ? this.props.selectedMovie.title : this.props.selectedMovie.name , 
-    theater: '', 
+    showings: '', 
     time: '', 
     ticketQuantity: '1', 
     concessions: '',
@@ -30,20 +31,27 @@ export class UserForm extends Component {
   };
 
   componentDidMount(){
-    this.fetchData()
+    this.fetchTheaters()
+    this.fetchShowings()
   }
 
-  fetchData = async function () {
+  fetchTheaters = async function () {
     const fetchURL = "http://silo.soic.indiana.edu:29102/api/theaters";
     const request = await axios.get(fetchURL);
-    // "https://api.themoviedb.org/3/discover/tv?api-key=${API_KEY}&with_networks=213"
 
     console.log( request.data[0]);
     this.setState({theaterInfo: request.data[0]})
     //console.log(theater);
     // return request;
     return(request.data[0])
+  }
 
+  fetchShowings = async function(){
+    const fetchURL = "http://silo.soic.indiana.edu:29102/api/showings";
+    const request = await axios.get(fetchURL);
+
+    console.log({requestedShowings: request.data});
+    this.setState({showings: request.data[0]})
   }
 
   // Proceed to next step
@@ -83,7 +91,7 @@ export class UserForm extends Component {
         );
       case 2:
         return (
-          <FormPersonalDetails
+          <Concessions
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}

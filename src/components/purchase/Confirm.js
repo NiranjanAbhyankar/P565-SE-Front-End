@@ -19,7 +19,7 @@ export class Confirm extends Component {
 
   render() {
     const {
-      values: { firstName, lastName, email, occupation, city, bio }
+      values: {title, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio }
     } = this.props;
     return (
       <MuiThemeProvider>
@@ -32,22 +32,10 @@ export class Confirm extends Component {
             <AppBar title="Confirm User Data" />
             <List>
               <ListItem>
-                <ListItemText primary="First Name" secondary={firstName} />
+                <ListItemText primary={"Tickets for "+ title} secondary={ticketQuantity} />
               </ListItem>
               <ListItem>
-                <ListItemText primary="Last Name" secondary={lastName} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Email" secondary={email} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Occupation" secondary={occupation} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="City" secondary={city} />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Bio" secondary={bio} />
+                <ListItemText primary="Concessions purchased: " secondary={this.showConcessions([])} />
               </ListItem>
             </List>
             <br />
@@ -67,6 +55,10 @@ export class Confirm extends Component {
         </>
       </MuiThemeProvider>
     );
+  }
+  showConcessions(concessions){
+    concessions.map(concession => <ListItemText primary={concession.name} secondary={concession.quantity} />
+    )
   }
 }
 

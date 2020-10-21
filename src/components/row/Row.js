@@ -76,6 +76,7 @@ function Row({ title, fetchURL, isLargeRow }) {
  }
 
   return (
+    
     <div className="row">
       {/* Passing Row title as text for h2 */}
       <h2>{title}</h2>
@@ -85,9 +86,7 @@ function Row({ title, fetchURL, isLargeRow }) {
          <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>
         ))}
       </div>
-      {trailerUrl && (
-        <YouTube className="video_container" videoId={trailerUrl} opts={opts} />
-      )}
+
 {/*if selected is NOT undefined (there is something selected), then a popup will open */}
 <Popup baseUrl= {base_url} 
 selected={selected} 
@@ -96,6 +95,7 @@ handleClose={closePopup}
 viewForm ={viewForm}
 /> 
 
+{/*will show the purchase ticket form for selected movie when button is clucked */}
 {isViewingForm ? <UserForm selectedMovie={selected}/> : ""}
     </div>
   );
