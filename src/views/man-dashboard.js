@@ -10,9 +10,9 @@ const ManDashboard = () => {
     return (
         <Container className="mb-5" >
           <Theater_Info/>
-          <br/>
+          <hr/>
           <AddShowing/>
-          <br/>
+          <hr/>
           <AddMovie/>
         </Container>
       );
