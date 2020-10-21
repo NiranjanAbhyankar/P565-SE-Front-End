@@ -17,7 +17,8 @@ export default class AddShowing extends React.Component {
         alert('A showing was added: ' + this.state.value);
         event.preventDefault();
       }
-    
+
+      //what format is the datetime?  
       render() {
         return (
             <div>

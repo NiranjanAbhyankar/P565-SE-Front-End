@@ -5,6 +5,7 @@ import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
 import Poster from "./Poster"
 import Popup from "./Popup"
+import UserForm from "../purchase/UserForm";
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
@@ -13,6 +14,7 @@ function Row({ title, fetchURL, isLargeRow }) {
   // Destructuring and hooks
   const [movies, setMovies] = useState([]);
   const [selected, setSelected] = useState(undefined);
+  const [isViewingForm, setViewingForm] = useState(false);
 
   const [trailerUrl, setTrailerUrl] = useState("");
 
@@ -66,6 +68,12 @@ function Row({ title, fetchURL, isLargeRow }) {
   const closePopup = () => {
     setSelected(undefined);
   }
+ const viewForm =() => {
+   setViewingForm(true);
+ }
+ const closeForm = () => {
+   setViewingForm(false);
+ }
 
   return (
     <div className="row">
@@ -81,8 +89,14 @@ function Row({ title, fetchURL, isLargeRow }) {
         <YouTube className="video_container" videoId={trailerUrl} opts={opts} />
       )}
 {/*if selected is NOT undefined (there is something selected), then a popup will open */}
-<Popup baseUrl= {base_url} selected={selected} open = {typeof selected != "undefined"} handleClose={closePopup} /> 
+<Popup baseUrl= {base_url} 
+selected={selected} 
+open = {typeof selected != "undefined"} 
+handleClose={closePopup} 
+viewForm ={viewForm}
+/> 
 
+{isViewingForm ? <UserForm selectedMovie={selected}/> : ""}
     </div>
   );
 }
