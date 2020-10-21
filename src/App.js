@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavBar, Footer, Loading, PrivateRoute } from "./components";
-import { Home, Profile, AboutUs, ContactUs, ManDashboard } from "./views";
+import { Home, Profile, AboutUs, ContactUs, ManDashboard, Purchase } from "./views";
+
 import "./App.css";
 import "./index.css";
 
@@ -11,6 +12,8 @@ import "./index.css";
 
 const App = () => {
   const { isLoading } = useAuth0();
+
+
 
   if (isLoading) {
     return <Loading />;
@@ -25,6 +28,7 @@ const App = () => {
           <Route path="/home" exact component={Home} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/about-us" exact component={AboutUs} />
+          <Route path="/purchase" exact component={Purchase} />
           <Route path="/contact-us" exact component={ContactUs} />
           <Route path="/man-dashboard" exact component={ManDashboard} />
         </Switch>
@@ -34,5 +38,7 @@ const App = () => {
     </div>
   );
 };
+
+
 
 export default App;

@@ -8,6 +8,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
+import ViewShowingsButton from './ViewShowingsButton';
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 
 const useStyles = makeStyles({
@@ -19,14 +22,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Popup({ selected, handleClose, open, baseUrl, loggedIn }) {
+export default function MoviePopup({ selected, handleClose, open, baseUrl, handleViewTimes }) {
   const classes = useStyles();
+
+    const isAuthenticated  = useAuth0();
 
   return (
       selected  ?
       <Dialog open = {open} onClose = {handleClose}>
     <Card className={classes.root}>
-      <CardActionArea>
         <CardMedia
           className={classes.media}
           image={`${baseUrl}${selected.backdrop_path ? selected.backdrop_path : selected.poster_path}`} 
@@ -40,10 +44,9 @@ export default function Popup({ selected, handleClose, open, baseUrl, loggedIn }
             {selected.overview}
           </Typography>
         </CardContent>
-      </CardActionArea>
       <CardActions>
 
-        <Button size="small" color="primary"> View Showings </Button> 
+       {isAuthenticated ? <ViewShowingsButton handleViewTimes ={handleViewTimes}handleClose = {handleClose} /> : ""}
         <Button size="small" color="primary" onClick={handleClose}>
           Close
         </Button>
@@ -57,7 +60,7 @@ export default function Popup({ selected, handleClose, open, baseUrl, loggedIn }
  
 }
 
-/*import React from 'react'
+/**  import React from 'react'
 
 function Popup({ selected, closePopup,baseUrl }) {
 	return (
@@ -75,5 +78,4 @@ function Popup({ selected, closePopup,baseUrl }) {
 	)
 }
 
-export default Popup
-*/
+export default Popup */

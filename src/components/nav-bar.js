@@ -68,6 +68,7 @@ const MainNav = () => (
 
 const AuthNav = () => {
   const { isAuthenticated } =useAuth0();
+  
 
   return (
     <Nav className='nav navbar-nav navbar-right '>

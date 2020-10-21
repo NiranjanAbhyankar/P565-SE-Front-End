@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 import "./Row.css";
-import YouTube from "react-youtube";
-import movieTrailer from "movie-trailer";
 import Poster from "./Poster"
-import Popup from "./Popup"
+import MoviePopup from "./MoviePopup"
+import TimesPopup from "../movieTimes/TimesPopup";
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
@@ -13,8 +12,9 @@ function Row({ title, fetchURL, isLargeRow }) {
   // Destructuring and hooks
   const [movies, setMovies] = useState([]);
   const [selected, setSelected] = useState(undefined);
+  const [viewingTimes, setViewingTimes] = useState(false);
 
-  const [trailerUrl, setTrailerUrl] = useState("");
+  const [myData , setData] = useState([]);
 
   // A snippet of code which rans based on a specific condition/variable
   useEffect(() => {
@@ -40,33 +40,46 @@ function Row({ title, fetchURL, isLargeRow }) {
   };
 
   // when you click on a poster
-  const handleClick = (movie) => {
+  const handleClickMovie = (movie) => {
     console.log(movie);
     title = (movie.name? movie.name : movie.title);
     
+    // sets the selected hook state to the clicked movie
     setSelected(() => {
       return movie
     });   
    // alert(title);
-
- 
-    /*if (trailerUrl) {
-      setTrailerUrl("");
-    } else {
-      movieTrailer(movie?.name || "")
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
-        })
-        .catch((error) => console.log(error));
-    }
-    */
   };
-// to close the popup
-  const closePopup = () => {
+
+// to close the popup, remove the currently selected movie
+  const closeMoviePopup = () => {
     setSelected(undefined);
   }
 
+
+  //view movie times popup
+  const handleViewTimes = () => {
+    setViewingTimes(true);
+    getTheatersFromApi();
+
+    console.log("SHOW MOVIE TIMES FOR " + selected.name)
+  }
+
+  const handleCloseTimes = ()=> {
+    setViewingTimes(false);
+  }
+
+  
+  async function getTheatersFromApi() {
+    const url = "http://silo.soic.indiana.edu:29102/api/theaters";
+    fetch(url)
+        .then(response => response.json())
+        .then(data => setData(data));
+        const PostData = getTheatersFromApi();
+        console.log(myData);
+  }
+
+  // what gets rendered
   return (
     <div className="row">
       {/* Passing Row title as text for h2 */}
@@ -74,14 +87,12 @@ function Row({ title, fetchURL, isLargeRow }) {
       <div className="row_posters">
         {/* several row_poster(s) */}
         {movies.map((movie) => (
-         <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>
+         <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClickMovie}></Poster>
         ))}
       </div>
-      {trailerUrl && (
-        <YouTube className="video_container" videoId={trailerUrl} opts={opts} />
-      )}
+     
 {/*if selected is NOT undefined (there is something selected), then a popup will open */}
-<Popup baseUrl= {base_url} selected={selected} open = {typeof selected != "undefined"} handleClose={closePopup} /> 
+<MoviePopup handleViewTimes = {() => handleViewTimes()} baseUrl= {base_url} selected={selected} open = {typeof selected != "undefined"} handleClose={closeMoviePopup} /> 
 
     </div>
   );
