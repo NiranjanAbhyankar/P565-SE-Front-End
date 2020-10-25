@@ -9,7 +9,7 @@ function AddMovie(){
   const [state, setState] = useState({
     s: "",
     movies: [],
-    selected: {}})
+    selected: undefined})
   const [results, setResults] = useState([]);
   const baseUrl = "https://image.tmdb.org/t/p/original/";
   const url = "https://api.themoviedb.org/3/search/movie?api_key=d73ffca3a2d08b6870b16763c14c058b";
@@ -61,17 +61,15 @@ function AddMovie(){
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(array));
 
-
-
     setState(prevState =>{
       return {...prevState, s:""}
     });
     setState(prevState =>{
       return {...prevState, results:[]}
     });
-    
-
-
+    setState(prevState =>{
+      return {...prevState, selected:undefined}
+    })
   }
 
 
