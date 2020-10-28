@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<meta charset="utf-8" />
+
+		<script src="/jquery-3.5.1.js"></script>
+		<script src="/constants.js"></script>
+<style>
+table, th, td { border: 1px solid black; }
+.wrapper {
+	display: grid;
+	grid-template-columns: 100px auto;
+	grid-auto-rows: auto;
+	grid-gap: 10px;
+	align-items: center;
+}
+</style>
+	</head>
+
+	<body>
+		<h1>Edit theater</h1>
+		<a href='theaters.html'>Return to theaters list</a>
+
+		<p id="data">JSON to be sent is printed here (for testing)</p>
+
+		<p id="id"></p>
+
+		<div class="wrapper">
+
+			<p></p>
+			<input type="button" id="submit" name="submit" value="Submit">
+
+			<label for="name">Name:</label>
+			<input type="text" id="name" name="name" required minlength="1" placeholder="Name">
+
+			<label for="address">Address:</label>
+			<textarea id="address" name="address" required minlength="1" rows=4 cols=30 placeholder="Address"></textarea>
+
+			<label for="hours">Hours:</label>
+			<textarea id="hours" name="hours" required minlength="1" rows=4 cols=30 placeholder="Hours"></textarea>
+
+			<label for="numrooms">Rooms:</label>
+			<input type="number" id="numrooms" name="numrooms" required min="1" max="100" placeholder="1">
+
+			<p>Concessions</p>
+			<div>
+				<label for="concessionsDrinks">Drinks</label>
+				<input type="checkbox" id="concessionsDrinks" name="concessionsDrinks">
+				<label for="concessionsColdfood">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cold food</label>
+				<input type="checkbox" id="concessionsColdfood" name="concessionsColdfood">
+				<label for="concessionsHotfood">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hot food</label>
+				<input type="checkbox" id="concessionsHotfood" name="concessionsHotfood">
+				<label for="concessionsSnacks">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Snacks</label>
+				<input type="checkbox" id="concessionsSnacks" name="concessionsSnacks">
+			</div>
+
+			<label for="seating">Seating:</label>
+			<textarea id="seating" name="seating" required minlength="1" rows=15 cols=30 placeholder="nnnnnn nnnnnn nnnnnn
+nnnnnn nnnnnn nnnnnn
+ nnnn   nnnn   nnnn
+
+rrrrrr rrrrrr rrrrrr
+rrrrrr rrrrrr rrrrrr
+rrrrrr rrrrrr rrrrrr
+rrrrrr rrrrrr rrrrrr
+ rrrr   rrrr   rrrr
+
+ a  a  a    a  a  a
+   a  a      a  a"></textarea>
+
+			<p></p>
+			<p>Seating: draw the seating layout with the theater screen at the top. n = basic seat; r = reclining seat; a = accessible seat.</p>
+
+		</div>
+
+		<script>
+let id = new URLSearchParams(window.location.search).get('id');
+
+$('#id').text('Theater id: ' + id);
+if (id == 0) $('h1').text('Create theater')
+
+let submitUrl = URLBASE + 'api/theaters';
+let fetchUrl = URLBASE + 'api/theaters/' + id;
+
+function fetchData() {
+	$.getJSON(fetchUrl, function(data) {
+		theater = data[0];
+		$('#name').val(theater.name);
+		$('#address').val(theater.address);
+		$('#hours').val(theater.hours);
+		$('#numrooms').val(theater.numrooms);
+		$('#seating').val(theater.seating);
+		$('#concessionsDrinks').prop('checked', theater.concessions & 0b0001);
+		$('#concessionsColdfood').prop('checked', theater.concessions & 0b0010);
+		$('#concessionsHotfood').prop('checked', theater.concessions & 0b0100);
+		$('#concessionsSnacks').prop('checked', theater.concessions & 0b1000);
+	});
+};
+
+if (id != 0)
+	fetchData();
+
+function submitData() {
+	cD = $('#concessionsDrinks').prop('checked');
+	cC = $('#concessionsColdfood').prop('checked');
+	cH = $('#concessionsHotfood').prop('checked');
+	cS = $('#concessionsSnacks').prop('checked');
+	concessions = cD + 2*cC + 4*cH + 8*cS;
+	data = [{
+		'id': parseInt(id),
+		'name': $('#name').val(),
+		'address': $('#address').val(),
+		'hours': $('#hours').val(),
+		'numrooms': parseInt($('#numrooms').val()),
+		'concessions': concessions,
+		'seating': $('#seating').val(),
+	}];
+	$('#data').text(JSON.stringify(data)); // TODO: remove this
+	$.ajax({
+		type: 'POST',
+		url: submitUrl,
+		contentType: 'application/json',
+		data: JSON.stringify(data),
+		complete: () => window.location = 'theaters.html'
+	});
+	$('body').html('Updating...');
+};
+
+$('#submit').click(submitData);
+		</script>
+	</body>
+</html>
