@@ -1,0 +1,77 @@
+<html>
+	<head>
+		<script src="/jquery-3.5.1.js"></script>
+		<script src="/constants.js"></script>
+<style>
+table, th, td { border: 1px solid black; }
+</style>
+	</head>
+
+	<body>
+		<h1>Theaters</h1>
+		<table id="table">
+			<tr>
+				<th>🖉</th>
+				<th>✖</th>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Hours</th>
+				<th>Rooms</th>
+				<th>Concessions</th>
+			</tr>
+		</table>
+
+		<script>
+let url = URLBASE + "api/theaters";
+
+function editTheater(id) {
+	alert('editing ' + id);
+}
+
+function deleteTheater(id) {
+	if (!confirm("Are you sure you want to delete theater " + id + "?"))
+		return;
+	data = {
+		'id': id,
+		'name': '',
+		'address': '',
+		'hours': '',
+		'numrooms': 0,
+		'concessions': 0,
+		'seating': ''
+	};
+	$.ajax({
+		type: 'POST',
+		url: url,
+		contentType: 'application/json',
+		data: JSON.stringify(data),
+		complete: () => window.location.reload(false)
+	});
+	$('body').html('Deleting...');
+}
+
+$.getJSON(url, function(data) {
+	data.forEach(function(theater) {
+		row = '<tr>';
+		row += '<td><a href="#" onclick="editTheater(' + theater.id + '); return false;">🖉</a></td>';
+		row += '<td><a href="#" onclick="deleteTheater(' + theater.id + '); return false;">✖</a></td>';
+		row += '<td>' + theater.id + '</td>';
+		row += '<td>' + theater.name + '</td>';
+		row += '<td>' + theater.address.replace(/\n/g, '<br>') + '</td>';
+		row += '<td>' + theater.hours.replace(/\n/g, '<br>') + '</td>';
+		row += '<td>' + theater.numrooms + '</td>';
+		concessionsDrinks = theater.concessions & 0b0001;
+		concessionsColdfood = theater.concessions & 0b0010;
+		concessionsHotfood = theater.concessions & 0b0100;
+		concessionsSnacks = theater.concessions & 0b1000;
+		concessions = (concessionsDrinks ? 'Drinks ' : '') + (concessionsColdfood ? 'Coldfood ' : '') + (concessionsHotfood ? 'Hotfood ' : '') + (concessionsSnacks ? 'Snacks ' : '');
+		row += '<td>' + concessions + '</td>';
+		// TODO: seating
+		row += '</tr>';
+		$('#table').append(row);
+	});
+});
+		</script>
+	</body>
+</html>
