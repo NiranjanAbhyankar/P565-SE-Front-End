@@ -13,7 +13,7 @@ const url = "http://www.omdbapi.com/?apikey=c906bfc3"
 
 
 const MainNav = () => (
-  <Nav className="mr-auto">
+  <Nav position = "fixed" className="mr-auto">
     <Nav.Link
       as={RouterNavLink}
       to="/home"

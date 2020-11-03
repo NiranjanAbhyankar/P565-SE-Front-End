@@ -18,7 +18,8 @@ const App = () => {
 
   return (
     <div className="app">
-      <NavBar />
+      {console.log(window.location.href)}
+      <NavBar /> 
       <Container fluid>
         <Switch>
           <Route path="/" exact component={Home} />
