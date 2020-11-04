@@ -57,7 +57,7 @@ function AddMovie(){
     }];
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://silo.soic.indiana.edu:29102/api/movies", true);
+    xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/movies", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(array));
 

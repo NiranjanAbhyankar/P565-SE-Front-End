@@ -21,8 +21,8 @@ For fixing overlap of drawer and toolbar
 */
 const useStyles = makeStyles({
   drawer: {
-    width: "190px", 
-    top: "100px",
+
+
   }
 });
 
@@ -53,7 +53,7 @@ const Drawer = props => {
 
   ];
   return (
-    <MUIDrawer variant="permanent" className={classes.drawer}>
+    <MUIDrawer variant="temporary"  className={classes.drawer}>
       <List>
         {itemsList.map((item, index) => {
           const { text, icon, onClick } = item;

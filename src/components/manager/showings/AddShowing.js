@@ -16,14 +16,14 @@ import clsx from 'clsx';
 
 
 import axios from "axios";
-import Search from "./Search.js";
-import Poster from "../row/Poster.js";
-import Popup from "./Popup.js";
+import Search from "../Search.js";
+import Poster from "../../row/Poster.js";
+import Popup from "../Popup.js";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(0),
-    minWidth: 140,
+    minWidth: 1000,
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
