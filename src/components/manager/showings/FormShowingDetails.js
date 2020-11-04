@@ -12,6 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Typography from '@material-ui/core/Typography';
 
 import clsx from 'clsx';
 
@@ -31,12 +32,9 @@ export class FormShowingDetails extends Component {
     return (
       <MuiThemeProvider>
         <>
-          <Dialog
-            open
-            fullWidth
-            maxWidth='sm'
-          >
+
             <AppBar title="Enter Showing Details" />
+            <Typography>Enter Showing Details</Typography>
             <TextField
               id="datetime-local"
               label="Showing Start Time"
@@ -47,7 +45,7 @@ export class FormShowingDetails extends Component {
                 shrink: true,
               }}
             />
-            <br />
+            <br /> <br />
             <FormControl >
             <InputLabel id="demo-simple-select-label">Duration</InputLabel>
               <Input
@@ -62,11 +60,12 @@ export class FormShowingDetails extends Component {
               />
 
             </FormControl>
-            <br/>
+            <br/> <br />
             <FormControl >
-              <InputLabel id="demo-simple-select-label">Room Number</InputLabel>
+              <InputLabel id="demo-simple-select-label">Room</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
+                width="1000"
                 id="demo-simple-select"
                 defaultValue="1"
                 onChange={handleChange('room')}>
@@ -75,7 +74,7 @@ export class FormShowingDetails extends Component {
                 <MenuItem value={3}>3</MenuItem>
               </Select>
             </FormControl>
-            <br/>
+            <br/> <br />
             <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
               <Input
                 id="standard-adornment-amount"
@@ -83,13 +82,13 @@ export class FormShowingDetails extends Component {
                 onChange={handleChange('amount')}
                 startAdornment={<InputAdornment position="start">$</InputAdornment>}
               />
-            <br />
+            <br /><br/> 
             <Button
               color="primary"
               variant="contained"
               onClick={this.continue}
             >Continue</Button>
-          </Dialog>
+
         </>
       </MuiThemeProvider>
     );

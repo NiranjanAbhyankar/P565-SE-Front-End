@@ -4,6 +4,7 @@ import SearchBar from "./Search.js"
 import axios from "axios";
 import Search from "./Search.js";
 import Poster from "../row/Poster.js";
+import Typography from '@material-ui/core/Typography';
 import Popup from "./Popup.js";
 function AddMovie(){
   const [state, setState] = useState({
@@ -75,7 +76,7 @@ function AddMovie(){
 
       return (
         <div>
-           
+        <Typography>Choose a Movie to Add to the Theater</Typography>
         <Search handleInput ={handleInput} search = {search}/>
         <div className="row">
       {/* Passing Row title as text for h2 */}

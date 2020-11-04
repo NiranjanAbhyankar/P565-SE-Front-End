@@ -5,13 +5,13 @@ import { DataGrid } from '@material-ui/data-grid';
 
 const columns = [
 
-    { field: 'name', headerName: 'Item', width: 300},
+    { field: '', headerName: 'Item', width: 300},
     { field: 'price', headerName: 'price', width: 130 },
   ];
   
 
 const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/concessions";
-function DisplaySnacks() {
+function DisplayShowings() {
 
     const [state, setState] = useState({
         s: "",
@@ -41,4 +41,4 @@ function DisplaySnacks() {
     )
 }
 
-export default DisplaySnacks
+export default DisplayShowings

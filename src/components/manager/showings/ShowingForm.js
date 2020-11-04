@@ -10,7 +10,7 @@ export class ShowingForm extends Component {
     step: 1,
     tmdbid: "",
     time: '',
-    room: '',
+    room: '1',
     duration: '',
 
   };

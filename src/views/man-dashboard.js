@@ -4,6 +4,7 @@ import AddShowing from "../components/manager/showings/AddShowing";
 import Theater_Info from "../components/manager/Theater-info";
 import AddMovie from "../components/manager/addMovie";
 import AddSnack from "../components/manager/snacks/addSnack";
+import Typography from '@material-ui/core/Typography';
 import Showing from "../components/manager/showings/showings.js";
 
 import ShowingForm from "../components/manager/showings/ShowingForm.js";
@@ -28,12 +29,6 @@ const ManDashboard = () => {
     return (
     <div >
           <Theater_Info/>
-          <hr/>
-          <Showing/>
-          <hr/>
-          <AddShowing/>
-          <hr/>
-          <AddSnack/>
           <hr/>
           <AddMovie/>
           <Drawer />
