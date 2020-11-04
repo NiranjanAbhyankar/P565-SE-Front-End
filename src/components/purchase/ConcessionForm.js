@@ -5,9 +5,11 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { List, ListItem, ListItemText } from '@material-ui/core/';
+import axios from "axios";
 
 
-export class Concessions extends Component {
+
+export class ConcessionForm extends Component {
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
@@ -18,25 +20,40 @@ export class Concessions extends Component {
     this.props.prevStep();
   };
 
+  componentDidMount(){
+    console.log(this.props.values.concessions)
+    }
+
+    formTitle(){
+      return("Concessions Available at " + this.props.values.theaterInfo.name)
+    }
+
   render() {
     const { values, handleChange } = this.props;
+
+
     return (
       <div>
-        <>
-          <Dialog
-            open
-            fullWidth
-            maxWidth='sm'
-          >
+ 
             <AppBar title="Enter Personal Details" />
-            <h3>This will provide a list of concessions available at the selected theater</h3>
+            <h3>Concessions available at {this.props.values.theaterInfo.name}</h3>
             <List>
-              <ListItem>
-                <ListItemText primary={"Large Popcorn"} secondary="$5.00" />
-              </ListItem>
-              <ListItem>
-                <ListItemText primary="Large Soda " secondary="$10.00"/>
-              </ListItem>
+            {this.props.values.concessions.map((snack) => (
+             <ListItem>
+               <ListItemText primary={snack.name} secondary={'$'+snack.price}></ListItemText>
+               <TextField
+              placeholder="0"
+              label="Quantity"
+              type="number"
+              onChange={(e) => handleChange(snack.key)}
+              defaultValue={snack.quantity}
+              margin="normal"
+              id = {"concession" + snack.key}
+            />
+             </ListItem>
+             
+        ))}
+  
             </List>
             <br />
 
@@ -51,11 +68,9 @@ export class Concessions extends Component {
               variant="contained"
               onClick={this.continue}
             >Continue</Button>
-          </Dialog>
-        </>
       </div>
     );
   }
 }
 
-export default Concessions;
+export default ConcessionForm;

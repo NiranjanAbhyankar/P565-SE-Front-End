@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -6,11 +6,14 @@ import { NavBar, Footer, Loading, PrivateRoute } from "./components";
 import { Home, Profile, AboutUs, ContactUs, ManDashboard } from "./views";
 import "./App.css";
 import "./index.css";
+import UserForm from "./components/purchase/UserForm";
+import UserFormNoProps from "./components/purchase/UserFormNoProps";
 
 
 
 const App = () => {
   const { isLoading } = useAuth0();
+
 
   if (isLoading) {
     return <Loading />;
@@ -27,6 +30,7 @@ const App = () => {
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/about-us" exact component={AboutUs} />
           <Route path="/contact-us" exact component={ContactUs} />
+          <Route path="/purchase" exact component={UserFormNoProps} />
           <Route path="/man-dashboard" exact component={ManDashboard} />
         </Switch>
       </Container>

@@ -6,7 +6,7 @@ import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Profile = () => {
   const { user } = useAuth0();
-  const { name, picture, email } = user;
+  const { nickname, picture, email } = user;
 
   return (
     <Container className="mb-5">
@@ -19,12 +19,14 @@ const Profile = () => {
           />
         </Col>
         <Col md>
-          <h2>{name}</h2>
+          <h2>{nickname}</h2>
           <p className="lead text-muted">{email}</p>
         </Col>
       </Row>
       <Row>
-        <Highlight>{JSON.stringify(user, null, 2)}</Highlight>
+        <h2>Purchase History</h2>
+        
+      { /** <Highlight>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
     </Container>
   );

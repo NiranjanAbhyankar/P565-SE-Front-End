@@ -19,24 +19,33 @@ export class Confirm extends Component {
 
   render() {
     const {
-      values: {title, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio }
+      values: {title, theaterInfo, time, ticketQuantity, concessions, movie }
     } = this.props;
     return (
-      <MuiThemeProvider>
+      
         <>
-          <Dialog
-            open
-            fullWidth
-            maxWidth='sm'
-          >
-            <AppBar title="Confirm User Data" />
+     
+            <AppBar title="Confirm Purchase" />
             <List>
               <ListItem>
-                <ListItemText primary={"Tickets for "+ title} secondary={ticketQuantity} />
+          
+
+               <b> <ListItemText primary={"Tickets for "+ movie.name + " x" + ticketQuantity} secondary={"$" + 6 * ticketQuantity} /></b>
               </ListItem>
-              <ListItem>
-                <ListItemText primary="Concessions purchased: " secondary={this.showConcessions([])} />
-              </ListItem>
+              <h5>Concessions Purchased</h5>
+              
+              
+              
+              {this.props.values.concessions.map ((snack) => (
+                snack.quantity > 0 ?
+             <ListItem>
+               <ListItemText primary={snack.name + " x" + snack.quantity} secondary={'$'+snack.price * snack.quantity}></ListItemText>
+
+             </ListItem> 
+             :
+             <></>
+             
+        ))}
             </List>
             <br />
 
@@ -51,9 +60,8 @@ export class Confirm extends Component {
               variant="contained"
               onClick={this.continue}
             >Confirm & Continue</Button>
-          </Dialog>
         </>
-      </MuiThemeProvider>
+   
     );
   }
   showConcessions(concessions){

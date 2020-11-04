@@ -13,32 +13,25 @@ export class FormUserDetails extends Component {
     this.props.nextStep();
   };
 
-
-
-  
-
   render() {
     const { values, handleChange } = this.props;
     return (
       <div>
         <>
-          <Dialog
-            open
-            fullWidth
-            maxWidth='sm'
-          >
+
             <AppBar title="Enter User Details" />
-    <h1>How many Tickets would you like to purchase for {values.title} at {values.theaterInfo.name}? </h1>
+    <h1>How many Tickets would you like to purchase for {values.movie.name} at {values.theaterInfo.name} at ? </h1>
   
 
             <TextField
               placeholder="Enter your desired quantity of tickets"
               label="Tickets to Purchase"
               type="number"
-              onChange={handleChange('firstName')}
+              onChange={handleChange('ticketQuantity')}
               defaultValue={values.ticketQuantity}
               margin="normal"
-              fullWidth
+  
+              
             />
 
             <br />
@@ -47,7 +40,6 @@ export class FormUserDetails extends Component {
               variant="contained"
               onClick={this.continue}
             >Continue</Button>
-          </Dialog>
         </>
       </div>
     );

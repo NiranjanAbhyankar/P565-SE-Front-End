@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import FormUserDetails from './FormUserDetails';
-import Concessions from './Concessions';
+import FormUserDetails from './TicketForm';
+import ConcessionForm from './ConcessionForm';
 import Confirm from './Confirm';
 import Success from './Success';
 import axios from "axios";
@@ -91,7 +91,7 @@ export class UserForm extends Component {
         );
       case 2:
         return (
-          <Concessions
+          <ConcessionForm
             nextStep={this.nextStep}
             prevStep={this.prevStep}
             handleChange={this.handleChange}

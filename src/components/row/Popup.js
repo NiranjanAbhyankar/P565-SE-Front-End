@@ -46,12 +46,14 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
           </Typography>
         </CardContent>
       </CardActionArea>
+      
       <CardActions>
-        {isAuthenticated ? <ViewFormsButton 
+        {isAuthenticated ? <a href="/purchase"><ViewFormsButton 
         selectedMovie = {selected}
-        viewForm = {viewForm}
-        closeForm = {closeForm}
-        /> : <Button onClick = {()=>alert("Please log in to purchase ticksts")}>Log in</Button>}
+        
+        
+
+        /></a> : <Button onClick = {()=>alert("Please log in to purchase ticksts")}>Log in</Button>}
         
         <Button size="small" color="primary" onClick={handleClose}>
           Close
@@ -65,6 +67,11 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
   );
  
 }
+/* 
+replace the <a>
+viewForm = {viewForm}
+        closeForm = {closeForm}
+        */
 
 /*import React from 'react'
 
