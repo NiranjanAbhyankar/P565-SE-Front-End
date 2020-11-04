@@ -36,20 +36,11 @@ export class FormMovieDetails extends Component {
             fullWidth
             maxWidth='sm'
           >
+            
             <AppBar title="Enter Personal Details" />
             <Showings createShowing = {createShowing} />
 
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={this.back}
-            >Back</Button>
-
-            <Button
-              color="primary"
-              variant="contained"
-              onClick={this.continue}
-            >Continue</Button>
+            
           </Dialog>
         </>
       </MuiThemeProvider>

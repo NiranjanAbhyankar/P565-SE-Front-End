@@ -11,6 +11,7 @@ export class Confirm extends Component {
     // PROCESS FORM //
     
     var array = [{
+      "id": 0,
       "theater": 0,
       "room": this.props.values.room,
       "datetime": this.props.values.time + ":00",

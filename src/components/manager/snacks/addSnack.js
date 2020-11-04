@@ -5,14 +5,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
+import { DataGrid } from '@material-ui/data-grid';
 
 function AddSnack() {
     const [values, setValues] = useState({
-        amount: '',
-        password: '',
-        weight: '',
-        weightRange: '',
-        showPassword: false,
+        snackid: '',
+        snackname: '',
+        price: '',
       });
 
     const handleChange = (prop) => (event) => {

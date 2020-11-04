@@ -3,7 +3,7 @@ import { Container, Row } from "react-bootstrap";
 import AddShowing from "../components/manager/showings/AddShowing";
 import Theater_Info from "../components/manager/Theater-info";
 import AddMovie from "../components/manager/addMovie";
-import AddSnack from "../components/manager/addSnack";
+import AddSnack from "../components/manager/snacks/addSnack";
 import Showing from "../components/manager/showings/showings.js";
 
 import ShowingForm from "../components/manager/showings/ShowingForm.js";
@@ -37,7 +37,7 @@ const ManDashboard = () => {
           <hr/>
           <AddMovie/>
           <Drawer />
-          <ShowingForm />
+
         <Switch>
           <Route exact from="/add-showing" render={props => <AddShowing {...props} />} />
           <Route exact path="/theater-info" render={props => <Theater_Info {...props} />} />

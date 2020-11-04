@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Geocode from "react-geocode";
 
-const fetchURL = "http://silo.soic.indiana.edu:29102/api/theaters";
+const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
  
 // set response language. Defaults to english.
@@ -66,7 +66,6 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        {theater.concessions} 
         
     </div>
   )
