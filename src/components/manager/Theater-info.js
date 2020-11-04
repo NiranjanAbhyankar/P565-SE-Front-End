@@ -40,7 +40,7 @@ function Theater_Info() {
       // Any variable pulled outsited of useEffect scope has to go inside the [] at the end of the method
   }, [fetchURL]);
   
-  Geocode.fromAddress("Eiffel Tower").then(
+  Geocode.fromAddress("604, Woodbridge Drive, Bloomington, Indiana").then(
     response => {
       const { lat, lng } = response.results[0].geometry.location;
       console.log(lat, lng);
