@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Geocode from "react-geocode";
 import GoogleMaps from "../geocode.js"
 
-const fetchURL = "http://silo.soic.indiana.edu:29102/api/theaters";
+const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
  
 // set response language. Defaults to english.
@@ -21,6 +21,7 @@ function Theater_Info() {
     name: "",
     address: "",
     hours:"",
+    concessions: [],
     numRooms:0
   })
 
@@ -32,11 +33,12 @@ function Theater_Info() {
         setTheater(request.data[0]);
         console.log(request.data[0]);
         console.log(theater);
+
         // return request;
       }
       fetchData();
       setState(prevState =>{
-        return {...prevState, name:theater.name, address:theater.address, hours:theater.hours, numRooms:0}
+        return {...prevState, name:theater.name, address:theater.address, concessions: theater.concessions, hours:theater.hours, numRooms:0}
       });
       // Any variable pulled outsited of useEffect scope has to go inside the [] at the end of the method
   }, [fetchURL]);

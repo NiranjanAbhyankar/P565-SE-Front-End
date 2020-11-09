@@ -9,6 +9,20 @@ export class Confirm extends Component {
   continue = e => {
     e.preventDefault();
     // PROCESS FORM //
+    
+    var array = [{
+      "id": 0,
+      "theater": 0,
+      "room": this.props.values.room,
+      "datetime": this.props.values.time + ":00",
+      "duration": this.props.values.duration,
+      "movie": this.props.values.tmdbid
+    }];
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/showings", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(array));
+
     this.props.nextStep();
   };
 
@@ -19,33 +33,26 @@ export class Confirm extends Component {
 
   render() {
     const {
-      values: {title, theaterInfo, time, ticketQuantity, concessions, movie }
+      values: { tmdbid, time, room, duration}
     } = this.props;
     return (
-      
+      <MuiThemeProvider>
         <>
-     
-            <AppBar title="Confirm Purchase" />
+
+            <AppBar title="Confirm User Data" />
             <List>
               <ListItem>
-          
-
-               <b> <ListItemText primary={"Tickets for "+ movie.name + " x" + ticketQuantity} secondary={"$" + 6 * ticketQuantity} /></b>
+                <ListItemText primary="Movie ID" secondary={tmdbid} />
               </ListItem>
-              <h5>Concessions Purchased</h5>
-              
-              
-              
-              {this.props.values.concessions.map ((snack) => (
-                snack.quantity > 0 ?
-             <ListItem>
-               <ListItemText primary={snack.name + " x" + snack.quantity} secondary={'$'+snack.price * snack.quantity}></ListItemText>
-
-             </ListItem> 
-             :
-             <></>
-             
-        ))}
+              <ListItem>
+                <ListItemText primary="Time" secondary={time} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Duration" secondary={duration} />
+              </ListItem>
+              <ListItem>
+                <ListItemText primary="Room" secondary={room} />
+              </ListItem>
             </List>
             <br />
 
@@ -60,13 +67,10 @@ export class Confirm extends Component {
               variant="contained"
               onClick={this.continue}
             >Confirm & Continue</Button>
+
         </>
-   
+      </MuiThemeProvider>
     );
-  }
-  showConcessions(concessions){
-    concessions.map(concession => <ListItemText primary={concession.name} secondary={concession.quantity} />
-    )
   }
 }
 

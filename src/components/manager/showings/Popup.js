@@ -8,9 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
-import ViewFormsButton from './ViewFormsButton';
-import { useAuth0 } from "@auth0/auth0-react";
-
 
 
 const useStyles = makeStyles({
@@ -22,10 +19,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Popup({ selected, handleClose, open, baseUrl, viewForm, closeForm }) {
+export default function Popup({ selected, handleClose, addMovie, open, baseUrl, loggedIn }) {
   const classes = useStyles();
-  const { isAuthenticated } =useAuth0();
-
 
   return (
       selected  ?
@@ -34,8 +29,8 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={`${baseUrl}${selected.backdrop_path ? selected.backdrop_path : selected.poster_path}`} 
-          title= {(selected.name? selected.name : selected.title)}
+          image={baseUrl+ selected.posterurl} 
+          title= {(selected.name? selected.name : selected.name)}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
@@ -46,15 +41,9 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
           </Typography>
         </CardContent>
       </CardActionArea>
-      
       <CardActions>
-        {isAuthenticated ? <a href="/purchase"><ViewFormsButton 
-        selectedMovie = {selected}
-        
-        
 
-        /></a> : <Button onClick = {()=>alert("Please log in to purchase ticksts")}>Log in</Button>}
-        
+        <Button size="small" color="primary" onClick={addMovie}> Create Showing </Button> 
         <Button size="small" color="primary" onClick={handleClose}>
           Close
         </Button>
@@ -67,11 +56,6 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
   );
  
 }
-/* 
-replace the <a>
-viewForm = {viewForm}
-        closeForm = {closeForm}
-        */
 
 /*import React from 'react'
 
