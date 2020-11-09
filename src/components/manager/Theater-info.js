@@ -3,6 +3,7 @@ import axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Geocode from "react-geocode";
+import GoogleMaps from "../geocode.js"
 
 const fetchURL = "http://silo.soic.indiana.edu:29102/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
@@ -40,10 +41,11 @@ function Theater_Info() {
       // Any variable pulled outsited of useEffect scope has to go inside the [] at the end of the method
   }, [fetchURL]);
   
-  Geocode.fromAddress("604, Woodbridge Drive, Bloomington, Indiana").then(
+  Geocode.fromAddress("Eiffel Tower").then(
     response => {
       const { lat, lng } = response.results[0].geometry.location;
       console.log(lat, lng);
+      <GoogleMaps latitude= {lat} longitude={lon} />
     },
     error => {
       console.error(error);
