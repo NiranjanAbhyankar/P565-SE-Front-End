@@ -45,18 +45,14 @@ function Theater_Info() {
   
   Geocode.fromAddress("Eiffel Tower").then(
     response => {
-      const lat = response.results[0].geometry.location.lat();
-      const lng = response.results[0].geometry.location.lng();
+      const { lat, lng } = response.results[0].geometry.location;
       console.log(lat, lng);
+      <GoogleMaps latitude= "51.12345" longitude= "43.23456" />
     },
     error => {
       console.error(error);
     }
-  ).then(
-    <GoogleMaps latitude ={lat} longitude={lng} />
   );
-
-  
 
     
   return (
@@ -72,7 +68,6 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        <GoogleMaps latitude ={lat} longitude={lng} />
         
     </div>
   )
