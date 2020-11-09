@@ -47,7 +47,7 @@ function Theater_Info() {
     response => {
       const { lat, lng } = response.results[0].geometry.location;
       console.log(lat, lng);
-      <GoogleMaps latitude= {lat} longitude={lon} />
+      <GoogleMaps latitude= {response.results[0].geometry.location.lat()} longitude={response.results[0].geometry.location.lon()} />
     },
     error => {
       console.error(error);
