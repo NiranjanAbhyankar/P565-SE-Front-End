@@ -48,12 +48,13 @@ function Theater_Info() {
       const lat = response.results[0].geometry.location.lat();
       const lng = response.results[0].geometry.location.lng();
       console.log(lat, lng);
-      <GoogleMaps latitude ={lat} longitude={lng} />
     },
     error => {
       console.error(error);
     }
   );
+
+  <GoogleMaps latitude ={lat} longitude={lng} />
 
     
   return (
