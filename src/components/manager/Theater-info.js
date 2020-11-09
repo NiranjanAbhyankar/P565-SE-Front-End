@@ -52,9 +52,11 @@ function Theater_Info() {
     error => {
       console.error(error);
     }
+  ).then(
+    <GoogleMaps latitude ={lat} longitude={lng} />
   );
 
-  <GoogleMaps latitude ={lat} longitude={lng} />
+  
 
     
   return (
@@ -70,6 +72,7 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
+        <GoogleMaps latitude ={lat} longitude={lng} />
         
     </div>
   )
