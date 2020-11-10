@@ -7,7 +7,7 @@ import GoogleMaps from "../geocode.js"
 
 const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
-const lat,lon;
+const lat = 0, lng = 0;
 // set response language. Defaults to english.
 Geocode.setLanguage("en");
  
