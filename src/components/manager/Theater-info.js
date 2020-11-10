@@ -65,7 +65,10 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        <GoogleMaps latitude = { "51.11111" } longitude = { "10.1111" } />
+        <div id="map">
+            <GoogleMaps latitude = { lat } longitude = { lng } />
+        </div>
+        
         
     </div>
   )

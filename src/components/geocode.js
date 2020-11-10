@@ -2,15 +2,19 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 
 function GoogleMaps({ latitude, longitude }){
- const renderMarkers = (map, maps) => {
-  let marker = new maps.Marker({
-  position: { lat: latitude, lng: longitude },
-  map,
-  title: 'Hello World!'
+  const map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4
   });
-  return marker;
+  const renderMarkers = (map, maps) => {
+    let marker = new maps.Marker({
+    position: { lat: latitude, lng: longitude },
+    map,
+    title: 'Hello World!'
+    });
+    return marker;
  };
 
+ 
  return (
    <div style={{ height: '50vh', width: '100%' }}>
     <GoogleMapReact
