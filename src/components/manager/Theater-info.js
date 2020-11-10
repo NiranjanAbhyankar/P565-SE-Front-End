@@ -11,9 +11,6 @@ Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
 // set response language. Defaults to english.
 Geocode.setLanguage("en");
  
-// set response region. Its optional.
-// A Geocoding request with region=es (Spain) will return the Spanish city.
-Geocode.setRegion("es");
 // Passing title as props
 function Theater_Info() {
   const [theater, setTheater] = useState({})
@@ -43,7 +40,7 @@ function Theater_Info() {
       // Any variable pulled outsited of useEffect scope has to go inside the [] at the end of the method
   }, [fetchURL]);
   
-  Geocode.fromAddress("Eiffel Tower").then(
+  Geocode.fromAddress(theater.address).then(
     response => {
       const { lat, lng } = response.results[0].geometry.location;
       console.log(lat, lng);
@@ -68,7 +65,7 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        <GoogleMaps latitude= "51.12345" longitude= "43.23456" />
+        <GoogleMaps address={ theater.address } />
         
     </div>
   )
