@@ -7,7 +7,7 @@ import GoogleMaps from "../geocode.js"
 
 const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
- 
+const lat,lon;
 // set response language. Defaults to english.
 Geocode.setLanguage("en");
  
@@ -65,7 +65,7 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        <GoogleMaps address={ theater.address } />
+        <GoogleMaps latitude = { lat } longitude = { lng } />
         
     </div>
   )
