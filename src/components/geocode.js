@@ -2,9 +2,6 @@ import React from 'react';
 import GoogleMapReact from 'google-map-react';
 
 function GoogleMaps({ latitude, longitude }){
-  const map = new google.maps.Map(document.getElementById("map"), {
-    zoom: 4
-  });
   const renderMarkers = (map, maps) => {
     let marker = new maps.Marker({
     position: { lat: latitude, lng: longitude },

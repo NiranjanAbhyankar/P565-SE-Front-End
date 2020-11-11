@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Geocode from "react-geocode";
 import GoogleMaps from "../geocode.js"
 
+
 const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
 const lat = 0, lng = 0;
@@ -65,10 +66,7 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        <div id="map">
-            <GoogleMaps latitude = { lat } longitude = { lng } />
-        </div>
-        
+        <GoogleMaps latitude = { lat } longitude = { lng }> </GoogleMaps>
         
     </div>
   )
