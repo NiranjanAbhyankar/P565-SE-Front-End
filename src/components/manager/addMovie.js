@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import SearchBox from "../Search/search-box.js";
 import SearchBar from "./Search.js"
 import axios from "axios";
@@ -7,6 +8,8 @@ import Poster from "../row/Poster.js";
 import Typography from '@material-ui/core/Typography';
 import Popup from "./Popup.js";
 function AddMovie(){
+  const { getAccessTokenSilently } = useAuth0();
+
   const [state, setState] = useState({
     s: "",
     movies: [],
@@ -57,9 +60,15 @@ function AddMovie(){
       "posterurl": state.selected.poster_path
     }];
 
+    const accessToken = await getAccessTokenSilently({
+      audience: "https://dev-gtlgvd7g.us.auth0.com/api/v2/",
+      scope: ""
+    });
+
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/movies", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
     xhr.send(JSON.stringify(array));
 
     setState(prevState =>{
