@@ -49,7 +49,7 @@ function AddMovie(){
       return {...prevState, selected:undefined}
     })
   }
-  const addMovie = () =>{
+  const addMovie = async () =>{
     console.log("selected", state.selected)
     
     var array = [{
@@ -60,7 +60,7 @@ function AddMovie(){
       "posterurl": state.selected.poster_path
     }];
 
-    const accessToken = /*await*/getAccessTokenSilently({
+    const accessToken = await getAccessTokenSilently({
       audience: "https://dev-gtlgvd7g.us.auth0.com/api/v2/",
       scope: ""
     });
