@@ -3,15 +3,14 @@ import axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Geocode from "react-geocode";
-import GoogleMaps from "../geocode.js"
+import Map from "../Maps/Map"
+
 
 
 const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
 Geocode.setApiKey("AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M");
-const lat = 0, lng = 0;
-// set response language. Defaults to english.
-Geocode.setLanguage("en");
- 
+
+let lat=0,lng=0;
 // Passing title as props
 function Theater_Info() {
   const [theater, setTheater] = useState({})
@@ -43,15 +42,16 @@ function Theater_Info() {
   
   Geocode.fromAddress(theater.address).then(
     response => {
-      const { lat, lng } = response.results[0].geometry.location;
-      console.log(lat, lng);
+      const {lat,lng} = response.results[0].geometry.location;
       
+      // global.latlong[0]=response.results[0].geometry.location.lat();
+      // global.latlong[1]=response.results[0].geometry.location.lng();      
     },
     error => {
       console.error(error);
+      console.log("Chukicha format ahe re")
     }
   );
-
     
   return (
     <div>
@@ -66,8 +66,7 @@ function Theater_Info() {
         {theater.hours}
         <Typography>Number of Rooms in Theater:</Typography>
         {theater.numrooms}
-        <GoogleMaps latitude = { lat } longitude = { lng }> </GoogleMaps>
-        
+        <Map {...{latitude:40.7128, longitude:-74.225}}/> 
     </div>
   )
 }
