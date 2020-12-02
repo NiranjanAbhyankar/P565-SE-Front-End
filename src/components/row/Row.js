@@ -10,27 +10,13 @@ import UserForm from "../purchase/UserForm";
 const base_url = "https://image.tmdb.org/t/p/original/";
 
 // Passing title as props
-function Row({ title, fetchURL, isLargeRow }) {
+function Row({ title, movies, isLargeRow, filters, showings}) {
   // Destructuring and hooks
-  const [movies, setMovies] = useState([]);
   const [selected, setSelected] = useState(undefined);
   const [isViewingForm, setViewingForm] = useState(false);
 
-  const [trailerUrl, setTrailerUrl] = useState("");
 
-  // A snippet of code which rans based on a specific condition/variable
-  useEffect(() => {
-    // When the row appears on the screen, makes a request to show the movies
-    // if [] => run once when the row loads, and dont run again
-    async function fetchData() {
-      const request = await axios.get(fetchURL);
-      // "https://api.themoviedb.org/3/discover/tv?api-key=${API_KEY}&with_networks=213"
-      setMovies(request.data.results);
-      // return request;
-    }
-    fetchData();
-    // Any variable pulled outsited of useEffect scope has to go inside the [] at the end of the method
-  }, [fetchURL]);
+ 
 
   const opts = {
     height: "390",
@@ -49,20 +35,7 @@ function Row({ title, fetchURL, isLargeRow }) {
     setSelected(() => {
       return movie
     });   
-   // alert(title);
 
- 
-    /*if (trailerUrl) {
-      setTrailerUrl("");
-    } else {
-      movieTrailer(movie?.name || "")
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          setTrailerUrl(urlParams.get("v"));
-        })
-        .catch((error) => console.log(error));
-    }
-    */
   };
 // to close the popup
   const closePopup = () => {
@@ -74,6 +47,49 @@ function Row({ title, fetchURL, isLargeRow }) {
  const closeForm = () => {
    setViewingForm(false);
  }
+ const passesFilter = (movie) => {
+   if (passesTitle(movie) && passesTheater(movie))
+    return true;
+  else
+    return false;
+
+}
+
+const passesTitle = (movie) =>{
+  var filteredTitle = filters.title.toLowerCase().trim();
+  var movieTitle = movie.name.toLowerCase().trim();
+ 
+  // console.log({GivenMovie: movie.name, FilteredEntry: filters.title});
+   if (filteredTitle == "")
+     return true;
+
+   else if (!movieTitle.includes(filteredTitle))
+     return false;
+   return true;
+
+}
+const passesTheater = (movie) =>{
+  var filterTheater = filters.selectedTheater;
+  var i;
+  if (filterTheater == -1)
+    return true;
+  for (i = 0; i < showings.length; i++) {
+    if (showings[i].id == filterTheater && showings[i].movie == movie.tmdbid )
+      return true;
+  }
+  return false
+}
+const passesGenre = (movie) =>{
+  
+}
+
+const filterMovie = (movie) => {
+ 
+  console.log(passesFilter(movie))
+  if (passesFilter(movie))
+    return <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>;
+}
+
 
   return (
     
@@ -82,9 +98,7 @@ function Row({ title, fetchURL, isLargeRow }) {
       <h2>{title}</h2>
       <div className="row_posters">
         {/* several row_poster(s) */}
-        {movies.map((movie) => (
-         <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>
-        ))}
+        {movies.map((movie) => filterMovie(movie))}
       </div>
 
 {/*if selected is NOT undefined (there is something selected), then a popup will open */}

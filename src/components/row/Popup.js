@@ -34,7 +34,7 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={`${baseUrl}${selected.backdrop_path ? selected.backdrop_path : selected.poster_path}`} 
+          image={`${baseUrl}${selected.backdrop_path ? selected.backdrop_path : selected.posterurl}`} 
           title= {(selected.name? selected.name : selected.title)}
         />
         <CardContent>
@@ -42,7 +42,7 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
             {(selected.name? selected.name : selected.title)}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {selected.overview}
+            {selected.description}
           </Typography>
         </CardContent>
       </CardActionArea>

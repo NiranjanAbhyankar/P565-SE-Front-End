@@ -46,7 +46,7 @@ const MainNav = () => (
     >
       Contact Us
     </Nav.Link>
-    <SearchBox placeholder ="Enter movie name..." 
+   {/* <SearchBox placeholder ="Enter movie name..." 
         handleChange = {
           (e) => {
             if (e.key==='Enter'){
@@ -62,7 +62,7 @@ const MainNav = () => (
               })
             }    
         }
-        }/>   
+        }/>   */}
   </Nav>
 );
 
