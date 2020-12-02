@@ -12,7 +12,7 @@ function Poster({ movie, isLargeRow,  baseUrl, handleClick }) {
             key={movie.id}
             onClick={() => handleClick(movie)}
             src={`${baseUrl}${
-              isLargeRow ? movie.poster_path : movie?.backdrop_path
+              isLargeRow ? movie.posterurl : movie?.poster_path
             }`}
             alt={movie.name}
           />

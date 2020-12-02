@@ -8,17 +8,18 @@ function Banner() {
 
   useEffect(() => {
     async function fetchData() {
-      const request = await axios.get(requests.fetchTrending);
+      const request = await axios.get("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/movies");
+      console.log({REQUESTEDdATA: request.data});
       setMovie(
-        request.data.results[
-          Math.floor(Math.random() * request.data.results.length - 1)
+        request.data[
+          Math.floor(Math.random() * request.data.length - 1)
         ]
       ); // []
     }
     fetchData();
   }, []);
 
-  console.log(movie);
+
 
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -29,17 +30,18 @@ function Banner() {
       className="banner"
       style={{
         backgroundImage: `url(
-        "https://image.tmdb.org/t/p/original/${movie?.backdrop_path || movie?.poster_path  }"
+        "https://image.tmdb.org/t/p/original/${movie?.posterurl || movie?.poster_path  }"
       )`,
       }}
     >
+      {/*We don't have access to a proper backdrop path, so the image will look very wonky */}
       <div className="banner_contents">
         <h1 className="banner_title">
           {movie?.title || movie?.name || movie?.original_name}
         </h1>
 
         
-        <h1 className="banner_description">{truncate(movie?.overview, 200)}</h1>
+        <h1 className="banner_description">{truncate(movie?.description, 200)}</h1>
         
       </div>   
       <div className="banner-fadeBottom" />   

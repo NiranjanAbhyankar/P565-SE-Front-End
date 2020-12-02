@@ -14,5 +14,15 @@ code {
     monospace;
 }
 
+.filters{
+  display:inline-block;
+  position: absolute;
+  width: 50px;
+}
+.rowStuff{
+margin-left: 200px;
+display:inline-block;
+
+}
 
 

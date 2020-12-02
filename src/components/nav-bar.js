@@ -39,6 +39,7 @@ const MainNav = () => (
     >
       Profile
     </Nav.Link>
+
     
     <SearchBox placeholder ="Enter movie name..." 
         handleChange = {
