@@ -3,9 +3,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import SearchBox from "../Search/search-box.js";
 import axios from "axios";
 import  Dropdown  from "./dropdown";
+import DropdownLocation from "./dropdownLocation"
 import CheckboxGenre from "./checkboxGenre"
 
-function Filters({selectDropDown}){
+function Filters({selectDropDown, selectLocation}){
 
   const [state, setState] = useState({
     s: "",
@@ -54,6 +55,7 @@ function Filters({selectDropDown}){
             <CheckboxGenre></CheckboxGenre>
                         <hr/>
            <Dropdown theaters= {theaters} selectDropDown = {selectDropDown} ></Dropdown>
+           <DropdownLocation selectLocation = {selectLocation}></DropdownLocation>
 
 
         </div>
