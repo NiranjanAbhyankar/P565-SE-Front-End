@@ -14,6 +14,23 @@ function Row({ title, movies, isLargeRow, filters, showings}) {
   // Destructuring and hooks
   const [selected, setSelected] = useState(undefined);
   const [isViewingForm, setViewingForm] = useState(false);
+  const [theaters, setTheaters] = useState([]);
+  useEffect(() => {
+    // When the row appears on the screen, makes a request to show the movies
+    // if [] => run once when the row loads, and dont run again
+    async function fetchData() {
+      const request = await axios.get("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters");
+ 
+      let myTheaters = [];
+      request.data.map((theater) => myTheaters.push(theater));
+
+
+      setTheaters(myTheaters);
+ 
+ 
+    }
+    fetchData();
+  }, ["https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters"]);
 
 
  
@@ -48,7 +65,11 @@ function Row({ title, movies, isLargeRow, filters, showings}) {
    setViewingForm(false);
  }
  const passesFilter = (movie) => {
-   if (passesTitle(movie) && passesTheater(movie))
+  // console.log({filters: filters, movie: movie, passesTheater: passesTheater(movie), passesLocation: passesLocation(movie)});
+
+
+
+   if (passesTitle(movie) && passesTheater(movie) && passesLocation(movie))
     return true;
   else
     return false;
@@ -83,9 +104,32 @@ const passesGenre = (movie) =>{
   
 }
 
+const passesLocation = (movie) =>{
+  var filterLocation = filters.selectedLocation;
+  // get all the theaters that have this showing
+  //console.log({filterlocation: filterLocation})
+  if (filterLocation == -1)
+  return true;
+  var myTheaters = [];
+  showings.map((showing) => {if (showing.movie == movie.tmdbid)
+                                    myTheaters.push(showing.id) })
+                                
+  // iterate over stored theaters
+  var i;
+  for (i = 0; i < theaters.length; i++){
+    // check to make sure at least one theater w/ showings for this are at a valid location
+    if (myTheaters.includes(theaters[i].id) && theaters[i].city == filterLocation)
+      return true;
+  }
+  return false;
+
+
+  
+}
+
 const filterMovie = (movie) => {
  
-  console.log(passesFilter(movie))
+  //console.log(passesFilter(movie))
   if (passesFilter(movie))
     return <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>;
 }

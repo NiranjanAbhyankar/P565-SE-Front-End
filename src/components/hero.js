@@ -17,12 +17,14 @@ const Hero = () => {
   const [currentFilters, setFilters] = useState({
     title: "",
     selectedTheater: -1,
+    selectedLocation: -1,
     genre: []});
 
   // filters selected but not yet applied
   const [tempFilters, setTempFilters] = useState({
     title: "",
-    selectedTheater: [],
+    selectedTheater: -1,
+    selectedLocation: -1,
     genre: []});
     const [movies, setMovies] = useState([]);
     const[showings, setShowings] = useState([]);
@@ -69,16 +71,29 @@ const Hero = () => {
     });
     //console.log(tempFilters);
   }
+  const selectLocation = (location) => {
+    console.log('changing locations')
+    console.log(location);
+    setTempFilters(prevState =>{
+      return {...prevState, selectedLocation:location}
+    });
+    //console.log(tempFilters);
+  }
+
 
 
   const resetFilters = () => {
     // do something to reset filters
   }
   const applyFilters = () => {
+    console.log(tempFilters)
+    console.log(currentFilters)
+
     setFilters(prevState =>{
       return {
         title: tempFilters.title,
         selectedTheater: tempFilters.selectedTheater,
+        selectedLocation: tempFilters.selectedLocation,
         genre: tempFilters.genre}
     });
   }
@@ -88,7 +103,7 @@ const Hero = () => {
         <Search handleInput ={handleInput} search = {search}></Search>
         <h3>Filters</h3>
         <hr></hr>
-        <Filters handleInput = {applyFilters} selectDropDown={selectTheater}></Filters>
+        <Filters handleInput = {applyFilters} selectDropDown={selectTheater} selectLocation={selectLocation}></Filters>
         <Button variant="contained" color="primary" onClick={applyFilters}> Apply Filters </Button>
       </div>
       
