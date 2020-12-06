@@ -7,6 +7,7 @@ import LoginButton from './login-button';
 import SignupButton from './signup-button';
 import "../index.css"
 import SearchBox from "./Search/search-box.js";
+import ChatButton from "./chat-button"
 
 
 const url = "http://www.omdbapi.com/?apikey=c906bfc3"
@@ -24,29 +25,23 @@ const MainNav = () => (
     </Nav.Link>
     <Nav.Link
       as={RouterNavLink}
+      to="./chat-button"
+      exact
+      activeClassName="router-link-exact-active"
+    >
+      Chat 
+    </Nav.Link>
+    <Nav.Link
+      as={RouterNavLink}
       to="/profile"
       exact
       activeClassName="router-link-exact-active"
     >
       Profile
     </Nav.Link>
-    <Nav.Link
-      as={RouterNavLink}
-      to="/about-us"
-      exact
-      activeClassName="router-link-exact-active"
-    >
-      About Us
-    </Nav.Link>
-    <Nav.Link
-      as={RouterNavLink}
-      to="/contact-us"
-      exact
-      activeClassName="router-link-exact-active"
-    >
-      Contact Us
-    </Nav.Link>
-   {/* <SearchBox placeholder ="Enter movie name..." 
+
+    
+    <SearchBox placeholder ="Enter movie name..." 
         handleChange = {
           (e) => {
             if (e.key==='Enter'){
@@ -62,7 +57,7 @@ const MainNav = () => (
               })
             }    
         }
-        }/>   */}
+        }/>   
   </Nav>
 );
 
@@ -73,7 +68,8 @@ const AuthNav = () => {
     <Nav className='nav navbar-nav navbar-right '>
       {isAuthenticated ? <LogoutButton/> : <LoginButton/>}
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    
-      {isAuthenticated ? <p> </p>: <SignupButton/>}      
+      {isAuthenticated ? <p> </p>: <SignupButton/>} 
+        
     </Nav>
     
   )

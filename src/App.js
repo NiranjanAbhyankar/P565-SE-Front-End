@@ -4,11 +4,13 @@ import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavBar, Footer, Loading, PrivateRoute } from "./components";
 import { Home, Profile, AboutUs, ContactUs, ManDashboard , ShowingForm, ManSnacks} from "./views";
+// import  Chat  from "./components/chat/chat"
 
 import "./App.css";
 import "./index.css";
 import UserForm from "./components/purchase/UserForm";
 import UserFormNoProps from "./components/purchase/UserFormNoProps";
+import ChatButton from "./components/chat-button";
 
 
 
@@ -35,9 +37,11 @@ const App = () => {
           <Route path="/man-dashboard" exact component={ManDashboard} />
           <Route path="/add-showings" exact component={ShowingForm} />
           <Route path="/man-snacks" exact component={ManSnacks} />
+          <PrivateRoute path="/chat-button" exact component={ChatButton} />
+
         </Switch>
       </Container>
-      <Footer />
+      {/* <Footer/> */}
       
     </div>
   );

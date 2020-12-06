@@ -61,7 +61,7 @@ function AddMovie(){
     }];
 
     const accessToken = await getAccessTokenSilently({
-      audience: "https://dev-gtlgvd7g.us.auth0.com/api/v2/",
+      audience: "MainAPI",
       scope: ""
     });
 
