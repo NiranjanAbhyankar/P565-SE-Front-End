@@ -2,6 +2,12 @@
   margin: 100;
 }
 
-
-
+.sideOpen{
+  display: flex;
+  margin-left: 250px;
+  margin-right: 40px;
+}
+.sideClosed{
+  margin-right:40px;
+}
 
