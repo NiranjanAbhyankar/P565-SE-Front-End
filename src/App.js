@@ -68,6 +68,7 @@ const getMovie = () => {
         </Switch>
       </Container>
     </div>
+    </div>
   );
 };
 
