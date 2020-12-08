@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect} from "react";
+import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,8 +11,9 @@ import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import ViewFormsButton from './ViewFormsButton';
 import { useAuth0 } from "@auth0/auth0-react";
+import StarRatingComponent from 'react-star-rating-component';
 
-
+const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/ratings/averageFor/";
 
 const useStyles = makeStyles({
   root: {
@@ -25,6 +27,16 @@ const useStyles = makeStyles({
 export default function Popup({ selected, handleClose, open, baseUrl, viewForm, closeForm }) {
   const classes = useStyles();
   const { isAuthenticated } =useAuth0();
+  const [rating, setRating] = useState({});
+
+  console.log("AHHH");
+  if(selected != undefined){
+  async function fetchData() {
+    const request = await axios.get(fetchURL +selected.tmdbid);
+    setRating(request.data);
+  }
+    fetchData();
+  }
 
 
   return (
@@ -44,6 +56,7 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
           <Typography variant="body2" color="textSecondary" component="p">
             {selected.description}
           </Typography>
+          <StarRatingComponent value = {rating} starCount = {5} editing = {false}/>
         </CardContent>
       </CardActionArea>
       
