@@ -1,61 +1,92 @@
 import React, { Component } from 'react';
-import FormUserDetails from './TicketForm';
+import TicketForm from './TicketForm';
 import ConcessionForm from './ConcessionForm';
 import Confirm from './Confirm';
 import Success from './Success';
 import axios from "axios";
+import TheaterForm from "./TheaterForm"
 
 
 export class UserForm extends Component {
   constructor(props) {
     super(props)
-  
   }
 
   state = {
+    availableTheaters : [],
+    availableShowings: [],
     step: 1,
+    movie: JSON.parse(localStorage.getItem("selectedMovie")),
     theaterInfo: [],
     showings: [],
-    title:this.props.selectedMovie.title ? this.props.selectedMovie.title : this.props.selectedMovie.name , 
     showings: '', 
     time: '', 
     ticketQuantity: '1', 
-    concessions: '',
-
-    firstName: '' ,
-    lastName: '',
-    email: '',
-    occupation: '',
-    city: '',
-    bio: ''
+    concessions: [],
   };
 
   componentDidMount(){
-    this.fetchTheaters()
     this.fetchShowings()
+    this.fetchConcessions()
+
+    this.fetchTheaters()
   }
 
   fetchTheaters = async function () {
-    const fetchURL = "http://silo.soic.indiana.edu:29102/api/theaters";
+    const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters";
     const request = await axios.get(fetchURL);
 
     console.log( request.data[0]);
-    this.setState({theaterInfo: request.data[0]})
+    this.setState({availableTheaters: request.data})
     //console.log(theater);
     // return request;
     return(request.data[0])
   }
 
   fetchShowings = async function(){
-    const fetchURL = "http://silo.soic.indiana.edu:29102/api/showings";
+    const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/showings";
     const request = await axios.get(fetchURL);
+    var sampleShowings = []
+    request.data.map((showing) => {
+     // console.log({tmdbid: this.state.movie,
+      //              showingMovie: showing.movie})
+      if (showing.movie == parseInt(this.state.movie.tmdbid))
+      sampleShowings.push(showing)
+    })
 
-    console.log({requestedShowings: request.data});
-    this.setState({showings: request.data[0]})
+    console.log({requestedShowings: request.data,
+                  currentMovie: parseInt(this.state.movie.tmdbid),
+                    filteredShowings: sampleShowings});
+    this.setState({availableShowings: sampleShowings})
   }
+
+  fetchConcessions = async function () {
+    const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/concessions";
+    const request = await axios.get(fetchURL);
+    const snax = []
+
+    for (var i = 0; i < request.data.length; i++){
+     // console.log(request.data[i])
+      snax.push({
+        id: request.data[i].id,
+        name: request.data[i].name,
+        price: request.data[i].price,
+        quantity: 0,
+        key: i,
+      })
+    }
+    console.log({snaxUserForm: snax})
+    this.setState({concessions: snax})
+    //console.log(theater);
+    // return request;
+    return(request.data[0])
+  }
+
 
   // Proceed to next step
   nextStep = () => {
+    console.log(this.selectedMovie);
+    console.log(this.state)
     const { step } = this.state;
     this.setState({
       step: step + 1
@@ -75,15 +106,29 @@ export class UserForm extends Component {
     this.setState({ [input]: e.target.value });
   };
 
+  handleConcess = (pos) => {
+    let items = [...this.state.concessions]
+    let item = {...items[pos]};
+    console.log({itemToBeChanged: item})
+    // get the quantity selected
+    let quan = parseInt(document.getElementById("concession"+pos).value);
+    // if the field is empty, default to 0
+    item.quantity = (Number.isNaN(quan) ? 0 : quan);
+    items[pos] = item
+    this.setState({concessions: items})
+    console.log(items)
+
+    }
+
   render() {
     const { step } = this.state;
-    const {title, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio } = this.state;
-    const values = {title, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio };
+    const {availableShowings, availableTheaters, movie, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio } = this.state;
+    const values = {availableShowings, availableTheaters, movie, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio };
 
     switch (step) {
       case 1:
         return (
-          <FormUserDetails
+          <TheaterForm
             nextStep={this.nextStep}
             handleChange={this.handleChange}
             values={values}
@@ -91,14 +136,22 @@ export class UserForm extends Component {
         );
       case 2:
         return (
-          <ConcessionForm
+          <TicketForm
             nextStep={this.nextStep}
-            prevStep={this.prevStep}
             handleChange={this.handleChange}
             values={values}
           />
         );
       case 3:
+        return (
+          <ConcessionForm
+            nextStep={this.nextStep}
+            prevStep={this.prevStep}
+            handleChange={this.handleConcess}
+            values={values}
+          />
+        );
+      case 4:
         return (
           <Confirm
             nextStep={this.nextStep}
@@ -106,7 +159,7 @@ export class UserForm extends Component {
             values={values}
           />
         );
-      case 4:
+      case 5:
         return <Success />;
       default:
         (console.log('This is a multi-step form built with React.'))

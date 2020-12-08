@@ -34,12 +34,12 @@ export class Confirm extends Component {
               </ListItem>
               <h5>Concessions Purchased</h5>
               
-              
+              {console.log({CONCESSSIONStoBuy: this.props.values.concessions})}
               
               {this.props.values.concessions.map ((snack) => (
                 snack.quantity > 0 ?
              <ListItem>
-               <ListItemText primary={snack.name + " x" + snack.quantity} secondary={'$'+snack.price * snack.quantity}></ListItemText>
+               <ListItemText primary={snack.name + " x" + snack.quantity} secondary={'$'+snack.price * parseInt(snack.quantity)}></ListItemText>
 
              </ListItem> 
              :

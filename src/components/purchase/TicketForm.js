@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
-export class FormUserDetails extends Component {
+export class TicketForm extends Component {
 
   continue = e => {
     e.preventDefault();
@@ -15,6 +15,7 @@ export class FormUserDetails extends Component {
 
   render() {
     const { values, handleChange } = this.props;
+    console.log(values)
     return (
       <div>
         <>
@@ -46,4 +47,4 @@ export class FormUserDetails extends Component {
   }
 }
 
-export default FormUserDetails;
+export default TicketForm;
