@@ -30,7 +30,7 @@ const ManDashboard = () => {
     <div >
           <Theater_Info/>
           <hr/>
-          <AddMovie/>
+
           <Drawer />
 
         <Switch>

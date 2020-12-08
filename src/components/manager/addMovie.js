@@ -4,7 +4,7 @@ import SearchBox from "../Search/search-box.js";
 import SearchBar from "./Search.js"
 import axios from "axios";
 import Search from "./Search.js";
-import Poster from "../row/Poster.js";
+import Poster from "./Poster.js";
 import Typography from '@material-ui/core/Typography';
 import Popup from "./Popup.js";
 function AddMovie(){
