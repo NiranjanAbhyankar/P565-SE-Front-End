@@ -10,7 +10,7 @@ import Filters from "./Search_Filters/filters";
 import {Button} from "@material-ui/core/"
 import Search from "./manager/Search"
 
-const Hero = () => {
+const Hero = (props) => {
   const furl = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/movies";
 
   // filters currently applied to displayed movies
@@ -38,6 +38,8 @@ const Hero = () => {
 
       const request2 = await axios.get("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/showings");
       setShowings(request2.data);
+      console.log({selectmovieHERO: props.selectMovieApp})
+
     }
     fetchData();
   }, [furl]);
@@ -50,7 +52,7 @@ const Hero = () => {
       setFilters(prevState =>{
         return {...prevState, title:currentString}
       });
-      console.log(currentFilters)
+      //console.log(currentFilters)
 
     }
   }
@@ -58,7 +60,7 @@ const Hero = () => {
   // searchbar onType functionality
   const handleInput = (e) => {
     let s = e.target.value;
-    console.log({CurrentInput: s});
+   // console.log({CurrentInput: s});
     setTempFilters(prevState =>{
       return {...prevState, title:s}
     });
@@ -109,7 +111,7 @@ const Hero = () => {
       
       <div class="rowStuff">
       <Banner />
-      <Row title="Available at our Theaters" movies={movies} filters = {currentFilters} showings={showings} fetchURL= {furl} isLargeRow/>
+      <Row selectMovieApp = {props.selectMovieApp}title="Available at our Theaters" movies={movies} filters = {currentFilters} showings={showings} fetchURL= {furl} isLargeRow/>
      {/* <Row title="Family Movies" fetchURL={requests.fetchFamily} isLargeRow />
       <Row title="Top Rated" fetchURL={requests.fetchTopRated} isLargeRow/>
       <Row title="Action Movies" fetchURL={requests.fetchActionMovies} isLargeRow/>

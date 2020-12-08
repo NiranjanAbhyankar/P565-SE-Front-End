@@ -9,7 +9,7 @@ function Banner() {
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/movies");
-      console.log({REQUESTEDdATA: request.data});
+      //console.log({REQUESTEDdATA: request.data});
       setMovie(
         request.data[
           Math.floor(Math.random() * request.data.length - 1)

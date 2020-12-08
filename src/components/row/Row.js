@@ -10,7 +10,7 @@ import UserForm from "../purchase/UserForm";
 const base_url = "https://image.tmdb.org/t/p/original/";
 
 // Passing title as props
-function Row({ title, movies, isLargeRow, filters, showings}) {
+function Row(props) {
   // Destructuring and hooks
   const [selected, setSelected] = useState(undefined);
   const [isViewingForm, setViewingForm] = useState(false);
@@ -46,9 +46,15 @@ function Row({ title, movies, isLargeRow, filters, showings}) {
 
   // when you click on a poster
   const handleClick = (movie) => {
-    console.log(movie);
-    title = (movie.name? movie.name : movie.title);
-    
+    //console.log(movie);
+   // props.selectMovieApp(movie);
+   //console.log(props.selectMovieApp);
+   // console.log({SELECTMOVIEROW: selectMovieApp})
+   console.log({MOVIEFROMROW: movie})
+   localStorage.clear();
+   localStorage.setItem("selectedMovie", JSON.stringify(movie))
+
+
     setSelected(() => {
       return movie
     });   
@@ -59,11 +65,17 @@ function Row({ title, movies, isLargeRow, filters, showings}) {
     setSelected(undefined);
   }
  const viewForm =() => {
+
    setViewingForm(true);
  }
  const closeForm = () => {
    setViewingForm(false);
  }
+
+ /*
+ BELOW ARE THE FUNCTIONS FOR FILTERING A MOVIE FROM THE VIEW
+
+ */
  const passesFilter = (movie) => {
   // console.log({filters: filters, movie: movie, passesTheater: passesTheater(movie), passesLocation: passesLocation(movie)});
 
@@ -77,7 +89,7 @@ function Row({ title, movies, isLargeRow, filters, showings}) {
 }
 
 const passesTitle = (movie) =>{
-  var filteredTitle = filters.title.toLowerCase().trim();
+  var filteredTitle = props.filters.title.toLowerCase().trim();
   var movieTitle = movie.name.toLowerCase().trim();
  
   // console.log({GivenMovie: movie.name, FilteredEntry: filters.title});
@@ -90,12 +102,12 @@ const passesTitle = (movie) =>{
 
 }
 const passesTheater = (movie) =>{
-  var filterTheater = filters.selectedTheater;
+  var filterTheater = props.filters.selectedTheater;
   var i;
   if (filterTheater == -1)
     return true;
-  for (i = 0; i < showings.length; i++) {
-    if (showings[i].id == filterTheater && showings[i].movie == movie.tmdbid )
+  for (i = 0; i < props.showings.length; i++) {
+    if (props.showings[i].id == filterTheater && props.showings[i].movie == movie.tmdbid )
       return true;
   }
   return false
@@ -105,13 +117,13 @@ const passesGenre = (movie) =>{
 }
 
 const passesLocation = (movie) =>{
-  var filterLocation = filters.selectedLocation;
+  var filterLocation = props.filters.selectedLocation;
   // get all the theaters that have this showing
   //console.log({filterlocation: filterLocation})
-  if (filterLocation == -1)
+  if (filterLocation == -1 || props.filters.selectedTheater != -1)
   return true;
   var myTheaters = [];
-  showings.map((showing) => {if (showing.movie == movie.tmdbid)
+  props.showings.map((showing) => {if (showing.movie == movie.tmdbid)
                                     myTheaters.push(showing.id) })
                                 
   // iterate over stored theaters
@@ -126,12 +138,11 @@ const passesLocation = (movie) =>{
 
   
 }
-
 const filterMovie = (movie) => {
  
   //console.log(passesFilter(movie))
   if (passesFilter(movie))
-    return <Poster movie= {movie} isLargeRow = {isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>;
+    return <Poster movie= {movie} isLargeRow = {props.isLargeRow} baseUrl = {base_url} handleClick = {handleClick}></Poster>;
 }
 
 
@@ -139,10 +150,10 @@ const filterMovie = (movie) => {
     
     <div className="row">
       {/* Passing Row title as text for h2 */}
-      <h2>{title}</h2>
+      <h2>{props.title}</h2>
       <div className="row_posters">
         {/* several row_poster(s) */}
-        {movies.map((movie) => filterMovie(movie))}
+        {props.movies.map((movie) => filterMovie(movie))}
       </div>
 
 {/*if selected is NOT undefined (there is something selected), then a popup will open */}

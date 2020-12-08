@@ -10,6 +10,14 @@ import axios from "axios";
 
 
 export class ConcessionForm extends Component {
+  constructor(props){
+    super(props)
+  }
+
+  state = {
+    concessions: []
+  };
+
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
@@ -21,6 +29,7 @@ export class ConcessionForm extends Component {
   };
 
   componentDidMount(){
+    this.fetchConcessions();
     console.log(this.props.values.concessions)
     }
 
@@ -28,17 +37,39 @@ export class ConcessionForm extends Component {
       return("Concessions Available at " + this.props.values.theaterInfo.name)
     }
 
+    
+  fetchConcessions = async function () {
+    const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/concessions";
+    const request = await axios.get(fetchURL);
+    const snax = []
+
+    console.log( request.data[0]);
+    for (var i = 0; i < request.data.length; i++){
+     // console.log(request.data[i])
+     // if (snackTheaterID == values.theaterInfo.id)
+      snax.push({
+        id: request.data[i].id,
+        name: request.data[i].name,
+        price: request.data[i].price,
+        quantity: 0,
+        key: i,
+      })
+    }
+    console.log({snax: snax})
+    this.setState({concessions: snax})
+    //console.log(theater);
+    // return request;
+    return(request.data[0])
+  }
   render() {
     const { values, handleChange } = this.props;
 
-
     return (
       <div>
- 
-            <AppBar title="Enter Personal Details" />
-            <h3>Concessions available at {this.props.values.theaterInfo.name}</h3>
+            <AppBar title="Select Concessions" />
+            <h3>Concessions available at {values.theaterInfo.name}</h3>
             <List>
-            {this.props.values.concessions.map((snack) => (
+            {this.state.concessions.map((snack) => (
              <ListItem>
                <ListItemText primary={snack.name} secondary={'$'+snack.price}></ListItemText>
                <TextField
