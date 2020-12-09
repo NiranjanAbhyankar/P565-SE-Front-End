@@ -10,8 +10,22 @@ const Profile = () => {
   const { user, getAccessTokenSilently} = useAuth0();
   const { nickname, picture, email } = user;
   async function isManager(){
-    let request = await axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager");
-    return request.data == 'True';
+    const accessToken = await getAccessTokenSilently({
+      audience: "MainAPI",
+      scope: ""
+    });
+    let request = await axios({
+        url: 'https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager',
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        }
+    });
+    console.log(request.data);
+    let x = request.data === 'True';
+    console.log(x);
+    return x;
   };
   
   async function makeCurrentUserAManager() {
