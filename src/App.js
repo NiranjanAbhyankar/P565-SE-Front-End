@@ -16,8 +16,9 @@ import ChatButton from "./components/chat-button";
 
 
 const App = () => {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
   const [selectedMovie, setSelectedMovie] = useState("initial state");
+
 
   const selectMovie = (movie) => {
     setSelectedMovie(movie);
@@ -31,6 +32,7 @@ const App = () => {
         return request.data;
     })
   };
+
 
   useEffect(() => {
     console.log("SELECTED MOVIE DATA",selectedMovie);
@@ -52,11 +54,11 @@ const getMovie = () => {
       <Container fluid>
         <Switch>
           <Route path="/" exact component={Home} >
-            {isManager?<Redirect to="/man-dashboard" /> : <p></p>  }
+            {/*isManager?<Redirect to="/man-dashboard" /> : <p></p> */ }
           </Route>
           {console.log({fromApp: selectMovie})}
           <Route path='/home' render={(props) => (<Home {...props} selectedMovie={getMovie} selectMovieApp={selectMovie} />)}>
-            {isManager?<Redirect to="/man-dashboard" /> : <p></p>  }
+            {/*isManager ?<Redirect to="/man-dashboard" /> : <p></p> */ }
           </Route>
 
           <PrivateRoute path="/profile" component={Profile} />

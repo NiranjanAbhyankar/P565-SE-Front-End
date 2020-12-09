@@ -43,7 +43,7 @@ const  MAppBar = props =>{
     const logInOut = (event) => {
         if (isAuthenticated){
             logout({
-                returnTo: window.location.origin,
+                returnTo: "/",
               });
         }
         else{
@@ -75,7 +75,7 @@ const  MAppBar = props =>{
       <MenuItem onClick={() => handleClose("/add-showings")}>Add Showings</MenuItem>
       <MenuItem onClick={() => handleClose("/man-snacks")}>Snacks</MenuItem>
       <MenuItem onClick={() => handleClose("/orders")}>Orders</MenuItem>
-      <MenuItem onClick={() => handleClose("/chat")}>Chat</MenuItem>
+      <MenuItem onClick={() => handleClose("./chat-button")}>Chat</MenuItem>
       </div>;
     }
     else{
@@ -83,7 +83,7 @@ const  MAppBar = props =>{
       <MenuItem onClick={() => handleClose("/profile")}>Profile</MenuItem>
       <MenuItem onClick={() => handleClose("/home")}>Browse</MenuItem>
       <MenuItem onClick={() => handleClose("/my-orders")}>Orders</MenuItem>
-      <MenuItem onClick={() => handleClose("/chat")}>Chat</MenuItem>
+      <MenuItem onClick={() => handleClose("./chat-button")}>Chat</MenuItem>
       </div>;
     }
 
@@ -91,6 +91,7 @@ const  MAppBar = props =>{
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          
             <Menu
                 id="simple-menu"
                 anchorEl={anchorEl}
@@ -107,9 +108,10 @@ const  MAppBar = props =>{
           </Typography>
           
           <Button color="inherit" onClick={logInOut}>{isAuthenticated ? "Logout" : "Login"}</Button>
+          {isAuthenticated? 
           <IconButton  className={classes.menuButton} color="inherit" aria-label="menu" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <MenuIcon />
-            </IconButton>
+            </IconButton> : <div></div>}
         </Toolbar>
       </AppBar>
     </div>
