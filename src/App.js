@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
-import { NavBar, Footer, Loading, PrivateRoute } from "./components";
+import { NavBar, Footer, Loading, PrivateRoute} from "./components";
+import MAppBar from "./components/app-bar.js";
 import { Home, Profile, AboutUs, ContactUs, ManDashboard , ShowingForm, ManSnacks, ManMovies} from "./views";
 import Drawer from "./components/manager/man-drawer.js";
 // import  Chat  from "./components/chat/chat"
@@ -40,14 +41,8 @@ const getMovie = () => {
   return (
     <div className="app">
       {console.log(window.location.href)}
-      <NavBar /> 
-      {(window.location.pathname === "/man-dashboard" || window.location.pathname === "/man-snacks" || window.location.pathname === "/add-showings"
-       || window.location.pathname === "/man-dashboard")
-      && 
-      <Drawer />
-      //only show this sidebar with manager dashboard
-      }
-      <div className="sideOpen">
+      <MAppBar /> 
+      
       <Container fluid>
         <Switch>
           <Route path="/" exact component={Home} />
@@ -67,7 +62,6 @@ const getMovie = () => {
 
         </Switch>
       </Container>
-    </div>
     </div>
   );
 };

@@ -4,11 +4,6 @@ import StarRatingComponent from 'react-star-rating-component';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
-
-
-
-
-
 const fetchURLAverage = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/ratings/averageFor";
 const fetchURL = "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/ratings/for/155";
 
@@ -25,19 +20,19 @@ function DisplayReviews() {/*
       setReviews(fetchData());
   }, [fetchURL]);
   */
+ const [reviews, setReviews] = useState([])
  const [state, setState] = useState({
-    snacks: [],
+    snacks: []
  })
     useEffect(() => {
         async function fetchData() {
-            const request = await axios.get(fetchURL);
-            console.log(request.data);
-            setState(prevState =>{
+            axios(fetchURL).then((request)=>{
+                console.log(request.data);
+                setState({ snacks: request.data}
+                )
+            })
 
-                return {...prevState, snacks:request.data}
-              })
-            // return request;
-          }
+        }
         fetchData();
     }, [fetchURL]);
 
@@ -45,14 +40,14 @@ function DisplayReviews() {/*
     
   return (
     <div>
-    {/*state.snacks*/}
-    {/*reviews && reviews.map((review) => (
+    {console.log(state.snacks)}
+    {state.snacks && state.snacks.map((review) => (
         <div>
-            {console.log(review.rating)}
-        <StarRatingComponent value = {review.rating} starCount = {5} editing = {false}/>
-        <Typography>{review.review}</Typography>
+            {console.log(review.stars)}
+        <StarRatingComponent name = "star" value = {review.stars} starCount = {5} editing = {false}/>
+        <h2>{review.review}</h2>
         </div>
-    ))*/}
+    ))}
     </div>
   )
 }

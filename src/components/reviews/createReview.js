@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0} from "@auth0/auth0-react";
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -31,6 +31,7 @@ function CreateReview() {
         "stars": values.stars,
         "review": values.review === undefined ? '' : values.review,
       };
+      console.log(dict);
       const accessToken = await getAccessTokenSilently({
         audience: "MainAPI",
         scope: ""
