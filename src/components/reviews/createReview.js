@@ -29,7 +29,7 @@ function CreateReview() {
       var dict = {
         "tmdbid": 155,
         "stars": values.stars,
-        "review": values.review,
+        "review": values.review === undefined ? '' : values.review,
       };
       const accessToken = await getAccessTokenSilently({
         audience: "MainAPI",
