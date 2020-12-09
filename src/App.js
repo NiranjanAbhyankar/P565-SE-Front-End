@@ -67,11 +67,7 @@ const getMovie = () => {
 
         </Switch>
       </Container>
-
-      {/* <Footer/> 
-          <Route path="/purchase" exact component={UserFormNoProps} />
-
-      */}
+    </div>
     </div>
   );
 };

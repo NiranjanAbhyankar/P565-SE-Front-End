@@ -29,14 +29,17 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
   const { isAuthenticated } =useAuth0();
   const [rating, setRating] = useState({});
 
-  console.log("AHHH");
+
   if(selected != undefined){
   async function fetchData() {
-    const request = await axios.get(fetchURL +selected.tmdbid);
+    const request = await axios.get(fetchURL+selected.tmdbid);
     setRating(request.data);
+    console.log(request.data);
   }
     fetchData();
   }
+
+  
 
 
   return (

@@ -6,6 +6,8 @@ import AddMovie from "../components/manager/addMovie";
 import AddSnack from "../components/manager/snacks/addSnack";
 import Typography from '@material-ui/core/Typography';
 import Showing from "../components/manager/showings/showings.js";
+import DisplayReviews from "../components/reviews/displayReviews.js";
+import CreateReview from "../components/reviews/createReview.js";
 
 import ShowingForm from "../components/manager/showings/ShowingForm.js";
 
@@ -28,8 +30,11 @@ const ManDashboard = () => {
   const classes = useStyles();
     return (
     <div >
-          <Theater_Info/>
-          <hr/>
+      <CreateReview/>
+          <DisplayReviews/>
+          {<Theater_Info/>
+          }
+
 
           <Drawer />
 
