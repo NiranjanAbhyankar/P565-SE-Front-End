@@ -10,9 +10,8 @@ const Profile = () => {
   const { user, getAccessTokenSilently} = useAuth0();
   const { nickname, picture, email } = user;
   async function isManager(){
-    axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager").then((request)=>{
-        return request.data;
-    })
+    let request = await axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager");
+    return request.data == 'True';
   };
   
   async function makeCurrentUserAManager() {
@@ -46,7 +45,7 @@ const Profile = () => {
         </Col>
         <Col md>
           <h2>{nickname}</h2>
-          {isManager? <p className="lead text-muted">Manager</p>:<p className="lead text-muted">Customer</p> }
+          {isManager() ? <p className="lead text-muted">Manager</p>:<p className="lead text-muted">Customer</p> }
           <p className="lead text-muted">{email}</p>
         </Col>
       </Row>
@@ -55,7 +54,7 @@ const Profile = () => {
         
       { /** <Highlight>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
-      {isManager ? <Button>Add Theater</Button>:<Button size="small" color="primary" onClick={makeCurrentUserAManager}>Become A Manager </Button>
+      {isManager() ? <Button>Add Theater</Button>:<Button size="small" color="primary" onClick={makeCurrentUserAManager}>Become A Manager </Button>
 }
     </Container>
   );
