@@ -43,7 +43,7 @@ const  MAppBar = props =>{
     const logInOut = (event) => {
         if (isAuthenticated){
             logout({
-                returnTo: "/",
+                returnTo: window.location.origin,
               });
         }
         else{
