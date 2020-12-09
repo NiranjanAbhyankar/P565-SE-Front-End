@@ -64,13 +64,14 @@ export default function Popup({ selected, handleClose, open, baseUrl, viewForm, 
       </CardActionArea>
       
       <CardActions>
-        {isAuthenticated ? <a href="/purchase"><ViewFormsButton 
-        selectedMovie = {selected}
-        
-        
+        {isAuthenticated ? <a href="/purchase"><ViewFormsButton selectedMovie = {selected}/></a>
+        : <Button onClick = {()=>alert("Please log in to purchase tickets")}>Log in</Button>}
+        <a href="about-movie">
+        <Button size="small" color="primary" >
+          See Reviews
+        </Button>
+        </a>
 
-        /></a> : <Button onClick = {()=>alert("Please log in to purchase ticksts")}>Log in</Button>}
-        
         <Button size="small" color="primary" onClick={handleClose}>
           Close
         </Button>

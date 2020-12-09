@@ -1,12 +1,38 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import Button from '@material-ui/core/Button';
 import { Highlight, Loading } from "../components";
+import axios from "axios";
 
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Profile = () => {
-  const { user } = useAuth0();
+  const { user, getAccessTokenSilently} = useAuth0();
   const { nickname, picture, email } = user;
+  async function isManager(){
+    axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager").then((request)=>{
+        return request.data;
+    })
+  };
+  
+  async function makeCurrentUserAManager() {
+    const accessToken = await getAccessTokenSilently({
+      audience: "MainAPI",
+      scope: ""
+    });
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/becomeManager", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+    xhr.send();
+  };
+
+  async function managerTheaters(){
+    axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/theaters").then((request)=> {
+
+    })
+  };
+
 
   return (
     <Container className="mb-5">
@@ -20,6 +46,7 @@ const Profile = () => {
         </Col>
         <Col md>
           <h2>{nickname}</h2>
+          {isManager? <p className="lead text-muted">Manager</p>:<p className="lead text-muted">Customer</p> }
           <p className="lead text-muted">{email}</p>
         </Col>
       </Row>
@@ -28,6 +55,8 @@ const Profile = () => {
         
       { /** <Highlight>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
+      {isManager ? <Button>Add Theater</Button>:<Button size="small" color="primary" onClick={makeCurrentUserAManager}>Become A Manager </Button>
+}
     </Container>
   );
 };

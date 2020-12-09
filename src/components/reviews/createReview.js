@@ -11,23 +11,24 @@ import StarRatingComponent from 'react-star-rating-component';
 
 function CreateReview() {
     const { getAccessTokenSilently } = useAuth0();
+    const movie = JSON.parse(localStorage.getItem("selectedMovie"));
     const [values, setValues] = useState({
-        tmdbid: '',
+        tmdbid: movie.tmdbid,
         stars: 0,
         review: '',
       });
 
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+    const handleChange = () => (event) => {
+        setValues({tmdbid:movie.tmdbid, stars: values.stars, review: event.target.value });
         console.log(values);
       };
     function onStarClick(prop) {
         console.log(prop);
-        setValues({stars: prop});
+        setValues({tmdbid:movie.tmdbid, stars: prop, review:values.review});
     };
     async function handleClick (){
       var dict = {
-        "tmdbid": 155,
+        "tmdbid": values.tmdbid,
         "stars": values.stars,
         "review": values.review === undefined ? '' : values.review,
       };
@@ -41,11 +42,12 @@ function CreateReview() {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
       xhr.send(JSON.stringify(dict));
-  
+      window.location.reload(false);
     };
 
     return (
         <div >
+        <Typography>Rate {movie.name}:</Typography>
         <StarRatingComponent 
           name="rate1" 
           starCount={5}
@@ -53,9 +55,16 @@ function CreateReview() {
           onStarClick={onStarClick}
         />
         <br></br>
-        <TextField id="standard-basic" 
-          label="Your Review"
-          onChange={handleChange('review')} />
+
+        <TextField
+          id="outlined-multiline-static"
+          label="Write A Review"
+          multiline
+          rows={2}
+          fullWidth={true}
+          variant="outlined"
+          onChange={handleChange()}
+        />
         <br/>
         <Button variant="outlined"
            color="primary"

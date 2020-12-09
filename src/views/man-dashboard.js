@@ -30,10 +30,9 @@ const ManDashboard = () => {
   const classes = useStyles();
     return (
     <div >
-      <CreateReview/>
-          <DisplayReviews/>
-          {<Theater_Info/>
-          }
+
+          <Theater_Info/>
+          
 
 
           <Drawer />

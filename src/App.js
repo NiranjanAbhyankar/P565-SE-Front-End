@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavBar, Footer, Loading, PrivateRoute} from "./components";
 import MAppBar from "./components/app-bar.js";
-import { Home, Profile, AboutUs, ContactUs, ManDashboard , ShowingForm, ManSnacks, ManMovies} from "./views";
+import { Home, Profile, AboutUs, ContactUs, ManDashboard , ShowingForm, ManSnacks, ManMovies, AboutMovie} from "./views";
 import Drawer from "./components/manager/man-drawer.js";
 // import  Chat  from "./components/chat/chat"
 
@@ -58,6 +58,7 @@ const getMovie = () => {
           <Route path="/add-showings" exact component={ShowingForm} />
           <Route path="/man-snacks" exact component={ManSnacks} />
           <Route path="/man-movies" exact component={ManMovies} />
+          <Route path="/about-movie" exact component={AboutMovie} />
           <PrivateRoute path="/chat-button" exact component={ChatButton} />
 
         </Switch>

@@ -113,7 +113,7 @@
     list-style: none;
   }
   
-  p {
+  .para {
     max-width: 500px;
     margin-bottom: 12px;
     line-height: 24px;
