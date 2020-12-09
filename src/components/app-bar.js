@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import { useAuth0 } from "@auth0/auth0-react";
 import AppBar from '@material-ui/core/AppBar';
@@ -9,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,10 +29,16 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MAppBar() {
+const  MAppBar = props =>{
+    const { history } = props;
     const { isAuthenticated, loginWithRedirect, logout } =useAuth0();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
+    async function isManager(){
+      axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager").then((request)=>{
+          return request.data;
+      })
+    };
 
     const logInOut = (event) => {
         if (isAuthenticated){
@@ -43,14 +51,41 @@ export default function MAppBar() {
         }
     };
 
-    const handleClick = (event) => {
+    function handleClick (event) {
         setAnchorEl(event.currentTarget);
     };
 
 
-    const handleClose = () => {
+    const handleClose =  pageURL => {
         setAnchorEl(null);
+        history.push(pageURL)
+
     };
+    const handleCloseMenu =(event) =>{
+      setAnchorEl(null);
+
+  };
+
+    let menuItems;
+    if(isManager){
+      menuItems = <div>
+      <MenuItem onClick={() => handleClose("profile")}>Profile</MenuItem>
+      <MenuItem onClick={() => handleClose("/man-dashboard")}>Theaters</MenuItem>
+      <MenuItem onClick={() => handleClose("/man-movies")}>Add Movies</MenuItem>
+      <MenuItem onClick={() => handleClose("/add-showings")}>Add Showings</MenuItem>
+      <MenuItem onClick={() => handleClose("/man-snacks")}>Snacks</MenuItem>
+      <MenuItem onClick={() => handleClose("/orders")}>Orders</MenuItem>
+      <MenuItem onClick={() => handleClose("/chat")}>Chat</MenuItem>
+      </div>;
+    }
+    else{
+      menuItems = <div>
+      <MenuItem onClick={() => handleClose("/profile")}>Profile</MenuItem>
+      <MenuItem onClick={() => handleClose("/home")}>Browse</MenuItem>
+      <MenuItem onClick={() => handleClose("/my-orders")}>Orders</MenuItem>
+      <MenuItem onClick={() => handleClose("/chat")}>Chat</MenuItem>
+      </div>;
+    }
 
   return (
     <div className={classes.root}>
@@ -61,11 +96,9 @@ export default function MAppBar() {
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
-                onClose={handleClose}
+                onClose={handleCloseMenu}
             >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                {menuItems}
             </Menu>
           <Typography variant="h6" className={classes.title}>
           <a href = "/home">
@@ -82,3 +115,5 @@ export default function MAppBar() {
     </div>
   );
 }
+
+export default withRouter(MAppBar);

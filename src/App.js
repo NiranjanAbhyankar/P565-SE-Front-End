@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import { useAuth0 } from "@auth0/auth0-react";
 import { NavBar, Footer, Loading, PrivateRoute} from "./components";
 import MAppBar from "./components/app-bar.js";
+import axios from "axios";
 import { Home, Profile, AboutUs, ContactUs, ManDashboard , ShowingForm, ManSnacks, ManMovies, AboutMovie} from "./views";
 import Drawer from "./components/manager/man-drawer.js";
 // import  Chat  from "./components/chat/chat"
@@ -25,6 +26,11 @@ const App = () => {
     console.log({updated:movie})
 
   } 
+  async function isManager(){
+    axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager").then((request)=>{
+        return request.data;
+    })
+  };
 
   useEffect(() => {
     console.log("SELECTED MOVIE DATA",selectedMovie);
@@ -38,16 +44,20 @@ const getMovie = () => {
     return <Loading />;
   }
 
+
   return (
     <div className="app">
       {console.log(window.location.href)}
       <MAppBar /> 
-      
       <Container fluid>
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={Home} >
+            {isManager?<Redirect to="/man-dashboard" /> : <p></p>  }
+          </Route>
           {console.log({fromApp: selectMovie})}
-          <Route path='/home' render={(props) => (<Home {...props} selectedMovie={getMovie} selectMovieApp={selectMovie} />)}/>
+          <Route path='/home' render={(props) => (<Home {...props} selectedMovie={getMovie} selectMovieApp={selectMovie} />)}>
+            {isManager?<Redirect to="/man-dashboard" /> : <p></p>  }
+          </Route>
 
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/about-us" exact component={AboutUs} />
