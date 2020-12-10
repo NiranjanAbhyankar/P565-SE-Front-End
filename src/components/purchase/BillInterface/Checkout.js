@@ -102,7 +102,7 @@ export default function Checkout({values}) {
   }
 
   const handleSubmit = async function(){
-    const accessToken = getAccessTokenWithPopup({
+    const accessToken = getAccessTokenSilently({
       audience: 'MainAPI',
       scope: ''
     });
