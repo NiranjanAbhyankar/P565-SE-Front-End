@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import axios from "axios";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const useStyles = makeStyles((theme) => ({
 
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 const steps = ['Billing address', 'Payment details', 'Review your order'];
 
 function getStepContent(step,values) {
+    
     /*const[state, setState] = React.useState({name: "",
                                             address:"",
                                             cardInfo: {},
@@ -62,6 +65,8 @@ function getStepContent(step,values) {
     const setPaymentDetails = () =>{
 
     }*/
+
+
   switch (step) {
     case 0:
       return <AddressForm />;
@@ -78,6 +83,75 @@ function getStepContent(step,values) {
 export default function Checkout({values}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const { getAccessTokenSilently } = useAuth0();
+  const { user } = useAuth0();
+
+  const getShowingIDString = () =>{
+      var concessionString = "";
+      var i;
+      var j;
+      console.log(values.concessions);
+      for (i = 0; i < values.concessions.length; i++){
+          if (values.concessions[i].quantity > 0){
+              for (j = 0; j < values.concessions[i].quantity; j++){
+                  concessionString += values.concessions[i].id + " "
+              }
+          }
+      }
+      return concessionString.trim();
+  }
+
+  const handleSubmit = async function(){
+  
+    // Get authorization token for logged in user from Auth0 API
+    const accessToken = getAccessTokenSilently({
+        audience: 'MainAPI',
+        scope: ''
+    });
+
+    // user id should be something like:
+    //   auth0|afkjalfajlfajlkfajl
+    //   google-oauth2|123810312903103
+    //   etc.
+    console.log('user id: ' + user.sub);
+  
+
+    let data = [
+        // each {} in here adds/updates/deletes a row in the db
+        // you can have just one, or multiple like shown below
+        // id 0 means add a new booking
+        // delete booking with id 48
+        {
+            id: 0,
+            showing: values.selectedShowing,
+            customer: user.sub,
+            status: 0,
+            concessions: getShowingIDString()
+        }
+    ];
+    console.log({DATA_TO_POST: data});
+
+    // send a POST request to /api/bookings
+    // add content-type and authorization headers
+    // and the data to send
+  /* let request = await axios({
+        url: 'https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings',
+        method: 'post',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + accessToken
+        },
+        data: data // the JS array of dicts made earlier
+    });
+*/
+    var xhr = new XMLHttpRequest();
+      xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings", true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
+      xhr.send(JSON.stringify(data));
+      handleNext();
+     // window.location.reload(false);
+}
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -121,7 +195,7 @@ export default function Checkout({values}) {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleNext}
+                    onClick={(activeStep === steps.length - 1 ? handleSubmit : handleNext)}
                     className={classes.button}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
