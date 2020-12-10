@@ -19,8 +19,7 @@ export class UserForm extends Component {
     step: 1,
     movie: JSON.parse(localStorage.getItem("selectedMovie")),
     theaterInfo: [],
-    showings: [],
-    showings: '', 
+    selectedShowing: [],
     time: '', 
     ticketQuantity: '1', 
     concessions: [],
@@ -54,6 +53,8 @@ export class UserForm extends Component {
       if (showing.movie == parseInt(this.state.movie.tmdbid))
       sampleShowings.push(showing)
     })
+    this.setState({ ["selectedShowing"]: sampleShowings[0] });
+
 
     console.log({requestedShowings: request.data,
                   currentMovie: parseInt(this.state.movie.tmdbid),
@@ -123,8 +124,8 @@ export class UserForm extends Component {
 
   render() {
     const { step } = this.state;
-    const {availableShowings, availableTheaters, movie, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio } = this.state;
-    const values = {availableShowings, availableTheaters, movie, theaterInfo, time, ticketQuantity, concessions, firstName, lastName, email, occupation, city, bio };
+    const {availableShowings, availableTheaters, movie, theaterInfo, selectedShowing, time, ticketQuantity, concessions } = this.state;
+    const values = {availableShowings, availableTheaters, movie, theaterInfo, selectedShowing, time,  ticketQuantity, concessions};
 
     switch (step) {
       case 1:

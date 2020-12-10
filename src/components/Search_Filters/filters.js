@@ -52,8 +52,7 @@ function Filters({selectDropDown, selectLocation}){
       return (
         <div>
             {/*genres.map((genre) => <p>{genre}</p>)*/}
-            <CheckboxGenre></CheckboxGenre>
-                        <hr/>
+            {/*<CheckboxGenre></CheckboxGenre>*/}
            <Dropdown theaters= {theaters} selectDropDown = {selectDropDown} ></Dropdown>
            <DropdownLocation selectLocation = {selectLocation}></DropdownLocation>
 
