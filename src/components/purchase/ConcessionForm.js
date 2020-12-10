@@ -14,9 +14,7 @@ export class ConcessionForm extends Component {
     super(props)
   }
 
-  state = {
-    concessions: []
-  };
+
 
   continue = e => {
     e.preventDefault();
@@ -69,17 +67,18 @@ export class ConcessionForm extends Component {
             <AppBar title="Select Concessions" />
             <h3>Concessions available at {values.theaterInfo.name}</h3>
             <List>
-            {this.state.concessions.map((snack) => (
+            {this.props.values.concessions.map((snack) => (
              <ListItem>
                <ListItemText primary={snack.name} secondary={'$'+snack.price}></ListItemText>
                <TextField
-              placeholder="0"
+              placeholder={snack.quantity}
               label="Quantity"
               type="number"
               onChange={(e) => handleChange(snack.key)}
               defaultValue={snack.quantity}
               margin="normal"
               id = {"concession" + snack.key}
+              key = {snack.key}
             />
              </ListItem>
              
@@ -88,6 +87,7 @@ export class ConcessionForm extends Component {
             </List>
             <br />
 
+            
             <Button
               color="secondary"
               variant="contained"
@@ -98,7 +98,7 @@ export class ConcessionForm extends Component {
               color="primary"
               variant="contained"
               onClick={this.continue}
-            >Continue</Button>
+            >Continue to Checkout</Button>
       </div>
     );
   }

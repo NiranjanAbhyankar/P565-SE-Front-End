@@ -5,6 +5,7 @@ import Confirm from './Confirm';
 import Success from './Success';
 import axios from "axios";
 import TheaterForm from "./TheaterForm"
+import Checkout from './BillInterface/Checkout';
 
 
 export class UserForm extends Component {
@@ -138,6 +139,8 @@ export class UserForm extends Component {
         return (
           <TicketForm
             nextStep={this.nextStep}
+            prevStep={this.prevStep}
+
             handleChange={this.handleChange}
             values={values}
           />
@@ -151,16 +154,11 @@ export class UserForm extends Component {
             values={values}
           />
         );
+
       case 4:
-        return (
-          <Confirm
-            nextStep={this.nextStep}
-            prevStep={this.prevStep}
-            values={values}
-          />
-        );
-      case 5:
-        return <Success />;
+        return <Checkout 
+                values = {values}
+                />;
       default:
         (console.log('This is a multi-step form built with React.'))
     }
