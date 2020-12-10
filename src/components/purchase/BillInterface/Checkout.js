@@ -119,8 +119,7 @@ export default function Checkout({values}) {
     console.log(data);
 
     var xhr = new XMLHttpRequest();
-      //xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings", true);
-      xhr.open("POST", "http://localhost:29102/api/bookings", true);
+      xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
       xhr.send(JSON.stringify(data));
