@@ -11,6 +11,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import GMap from "../Maps/Map"
+
+const GOOGLE_MAP_API_KEY = 'AIzaSyB9LwVR4EdVtYVmT3uuibKaU56O7XmmE8M';
+
+const loadGoogleMapScript = (callback) => {
+  if (typeof window.google === 'object' && typeof window.google.maps === 'object') {
+    callback();
+  } else {
+    const googleMapScript = document.createElement("script");
+    googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}`;
+    window.document.body.appendChild(googleMapScript);
+    googleMapScript.addEventListener("load", callback);
+  }
+}
 
 
 
@@ -77,6 +91,7 @@ export class TheaterForm extends Component {
               variant="contained"
               onClick={this.continue}
             >Next</Button>
+            <GMap/>
 
             
         </>
