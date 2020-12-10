@@ -5,6 +5,7 @@ import axios from "axios";
 import  Dropdown  from "./dropdown";
 import DropdownLocation from "./dropdownLocation"
 import CheckboxGenre from "./checkboxGenre"
+import "../../index.css"
 
 function Filters({selectDropDown, selectLocation}){
 
@@ -50,7 +51,7 @@ function Filters({selectDropDown, selectLocation}){
 
 
       return (
-        <div>
+        <div class = "filt">
             {/*genres.map((genre) => <p>{genre}</p>)*/}
             {/*<CheckboxGenre></CheckboxGenre>*/}
            <Dropdown theaters= {theaters} selectDropDown = {selectDropDown} ></Dropdown>

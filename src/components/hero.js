@@ -103,7 +103,6 @@ const Hero = (props) => {
     <Container fluid >
       <div class="filters">
         <Search handleInput ={handleInput} search = {search}></Search>
-        <h3>Filters</h3>
         <Filters handleInput = {applyFilters} selectDropDown={selectTheater} selectLocation={selectLocation}></Filters>
         <Button variant="contained" color="primary" onClick={applyFilters}> Apply Filters </Button>
       </div>
