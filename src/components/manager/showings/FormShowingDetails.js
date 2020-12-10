@@ -39,7 +39,7 @@ export class FormShowingDetails extends Component {
               id="datetime-local"
               label="Showing Start Time"
               type="datetime-local"
-              defaultValue="2020-11-04T10:30:00"
+              defaultValue={datetime}
               onChange={handleChange('time')}
               InputLabelProps={{
                 shrink: true,

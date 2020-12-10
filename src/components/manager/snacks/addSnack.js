@@ -11,24 +11,40 @@ function AddSnack() {
     const [values, setValues] = useState({
         name: '',
         price: '',
+        image: '',
       });
 
-    const handleChange = (prop) => (event) => {
-        setValues({ ...values, [prop]: event.target.value });
+    const handleChangeName = (event) => {
+        setValues({ name: event.target.value, price: values.price, image: values.image });
         console.log(values);
       };
+    const handleChangePrice = (event) => {
+        setValues({ name: values.name, price: event.target.value, image: values.image });
+        console.log(values);
+      };
+     const handleChangeImage = (event) => {
+      const fr = new FileReader()
+        fr.onloadend = () => setValues({ name: values.name, price: values.price, image: fr.result })
+        fr.readAsDataURL(event.target.files[0])
+      console.log(values);
+    };
+      
     function handleClick (){
+      
       var array = [{
         "id": '0',
         "name": values.name,
         "price": values.price,
+        "image": values.image,
       }];
+      console.log(array);
   
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/concessions", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.send(JSON.stringify(array));
-  
+      //window.location.reload(false);
+ 
     };
 
     return (
@@ -36,15 +52,16 @@ function AddSnack() {
         <Typography>Add Snack Form:</Typography>
         <TextField id="standard-basic" 
           label="Snack Name"
-          onChange={handleChange('name')} />
+          onChange={handleChangeName} />
         <br/><br/>
-        <InputLabel htmlFor="standard-adornment-amount">Price</InputLabel>
           <Input
             id="standard-adornment-amount"
             value={values.amount}
-            onChange={handleChange('price')}
+            onChange={handleChangePrice}
             startAdornment={<InputAdornment position="start">$</InputAdornment>}
           />
+          <br/><br/>
+        <input type="file" onChange={handleChangeImage}></input>
           <br/><br/>
         <Button variant="outlined"
            color="primary"

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 export class Success extends Component {
   continue = e => {
@@ -21,8 +22,8 @@ export class Success extends Component {
         <>
 
             <AppBar title="Success" />
-            <h1>Thank You For Your Submission</h1>
-            <p>You will get an email with further instructions.</p>
+            <h1>Successfully Added</h1>
+            <a href = "/add-showings"><Button>Add Another</Button></a>
 
         </>
       </MuiThemeProvider>

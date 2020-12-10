@@ -1,7 +1,7 @@
 import React from "react";
-
 import CreateReview from "../components/reviews/createReview.js";
 import DisplayReviews from "../components/reviews/displayReviews.js";
+import Button from '@material-ui/core/Button';
 
 const AboutMovie = () => {
     const movie = JSON.parse(localStorage.getItem("selectedMovie"));
@@ -17,6 +17,7 @@ const AboutMovie = () => {
             }
             alt={movie.name}
           />
+          <a href ="/purchase"><Button>Book a Ticket</Button></a>
             <CreateReview/>
             <DisplayReviews/>
         </div>   
