@@ -83,7 +83,7 @@ function getStepContent(step,values) {
 export default function Checkout({values}) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, getAccessTokenWithPopup } = useAuth0();
   const { user } = useAuth0();
 
   const getShowingIDString = () =>{
@@ -102,13 +102,11 @@ export default function Checkout({values}) {
   }
 
   const handleSubmit = async function(){
-  
     // Get authorization token for logged in user from Auth0 API
-    const accessToken = getAccessTokenSilently({
-        audience: 'MainAPI',
-        scope: ''
+    const accessToken = getAccessTokenWithPopup({
+      audience: 'MainAPI',
+      scope: ''
     });
-
     // user id should be something like:
     //   auth0|afkjalfajlfajlkfajl
     //   google-oauth2|123810312903103
@@ -124,8 +122,8 @@ export default function Checkout({values}) {
         {
             id: 0,
             showing: values.selectedShowing,
-            customer: user.sub,
             status: 0,
+            customer: user.sub,
             concessions: getShowingIDString()
         }
     ];
@@ -149,6 +147,7 @@ export default function Checkout({values}) {
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
       xhr.send(JSON.stringify(data));
+
       handleNext();
      // window.location.reload(false);
 }
