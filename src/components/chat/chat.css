@@ -9,7 +9,7 @@
   .Chat header {
     background-color: #181717;
     height: 10vh;
-    min-height: 50px;
+    min-height: 100px;
     color: white;
     position: fixed;
     width: 100%;

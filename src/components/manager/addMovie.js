@@ -85,6 +85,7 @@ function AddMovie(){
       return (
         <div>
         <Typography variant="h4">Find a Movie to Add to the Theater</Typography>
+        <br/>
         <Search handleInput ={handleInput} search = {search}/>
         <div className="row">
       {/* Passing Row title as text for h2 */}
