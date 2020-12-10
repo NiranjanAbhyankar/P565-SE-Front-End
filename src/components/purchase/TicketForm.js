@@ -21,7 +21,7 @@ export class TicketForm extends Component {
         <>
 
             <AppBar title="Enter User Details" />
-    <h1>How many Tickets would you like to purchase for {values.movie.name} at {values.theaterInfo.name} at ? </h1>
+    <h1>How many Tickets would you like to purchase for {values.movie.name} at {values.theaterInfo.name}? </h1>
   
 
             <TextField
@@ -36,6 +36,11 @@ export class TicketForm extends Component {
             />
 
             <br />
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={this.back}
+            >Back</Button>
             <Button
               color="primary"
               variant="contained"

@@ -19,6 +19,10 @@ export class TheaterForm extends Component {
     e.preventDefault();
     this.props.nextStep();
   };
+  back = e => {
+    e.preventDefault();
+    this.props.prevStep();
+  };
 
   getEligibleTheaterIds = (values) => {
     var eligibleTheaters = [];
@@ -44,7 +48,7 @@ export class TheaterForm extends Component {
         <>
 
             <AppBar title="Enter User Details" />
-            <h1>How many Tickets would you like to purchase for {values.movie.name} at {values.theaterInfo.name} at ? </h1>
+            <h1>What theater would you like to view {values.movie.name} at? </h1>
   
  
              <FormControl variant="filled" className={"salad"/*classes.formControl*/}>
@@ -68,7 +72,8 @@ export class TheaterForm extends Component {
               color="primary"
               variant="contained"
               onClick={this.continue}
-            >Continue</Button>
+            >Next</Button>
+            
         </>
       </div>
     );
