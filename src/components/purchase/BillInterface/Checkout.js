@@ -86,7 +86,7 @@ export default function Checkout({values}) {
   const { getAccessTokenSilently, getAccessTokenWithPopup } = useAuth0();
   const { user } = useAuth0();
 
-  const getShowingIDString = () =>{
+  const getConcessionsIDString = () =>{
       var concessionString = "";
       var i;
       var j;
@@ -102,48 +102,25 @@ export default function Checkout({values}) {
   }
 
   const handleSubmit = async function(){
-    // Get authorization token for logged in user from Auth0 API
     const accessToken = getAccessTokenWithPopup({
       audience: 'MainAPI',
       scope: ''
     });
-    // user id should be something like:
-    //   auth0|afkjalfajlfajlkfajl
-    //   google-oauth2|123810312903103
-    //   etc.
-    console.log('user id: ' + user.sub);
-  
 
     let data = [
-        // each {} in here adds/updates/deletes a row in the db
-        // you can have just one, or multiple like shown below
-        // id 0 means add a new booking
-        // delete booking with id 48
         {
             id: 0,
-            showing: values.selectedShowing,
-            status: 0,
+            showing: values.selectedShowing.id,
+            status: 1,
             customer: user.sub,
-            concessions: getShowingIDString()
+            concessions: getConcessionsIDString()
         }
     ];
-    console.log({DATA_TO_POST: data});
+    console.log(data);
 
-    // send a POST request to /api/bookings
-    // add content-type and authorization headers
-    // and the data to send
-  /* let request = await axios({
-        url: 'https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings',
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
-        },
-        data: data // the JS array of dicts made earlier
-    });
-*/
     var xhr = new XMLHttpRequest();
-      xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings", true);
+      //xhr.open("POST", "https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/bookings", true);
+      xhr.open("POST", "http://localhost:29102/api/bookings", true);
       xhr.setRequestHeader('Content-Type', 'application/json');
       xhr.setRequestHeader('Authorization', `Bearer ${accessToken}`);
       xhr.send(JSON.stringify(data));
