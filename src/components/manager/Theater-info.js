@@ -41,16 +41,16 @@ function Theater_Info() {
     
   return (
     <div>
-        <Typography>Theater Info</Typography>
+        <Typography variant="h5">Theater Info</Typography>
         
         {//<TextField id="outlined-full-width" label={"Theater Name"} variant="outlined"  defaultValue= {state.name} />
 }
         {theater.name}
-        <Typography>Theater Address:</Typography>
+        <Typography variant="h5">Theater Address:</Typography>
         {theater.address}
-        <Typography>Theater Hours:</Typography>
+        <Typography variant="h5">Theater Hours:</Typography>
         {theater.hours}
-        <Typography>Number of Rooms in Theater:</Typography>
+        <Typography variant="h5">Number of Rooms in Theater:</Typography>
         {theater.numrooms}
     </div>
   )

@@ -50,8 +50,6 @@ function AddMovie(){
     })
   }
   const addMovie = async () =>{
-    console.log("selected", state.selected)
-    
     var array = [{
       "tmdbid": state.selected.id,
       "name": state.selected.original_title,
@@ -59,7 +57,7 @@ function AddMovie(){
       "year": 0,
       "posterurl": state.selected.poster_path
     }];
-
+    console.log(array);
     const accessToken = await getAccessTokenSilently({
       audience: "MainAPI",
       scope: ""
@@ -79,17 +77,21 @@ function AddMovie(){
     });
     setState(prevState =>{
       return {...prevState, selected:undefined}
-    })
+    });
+    //window.location.reload(false);
   }
 
 
       return (
         <div>
-        <Typography>Choose a Movie to Add to the Theater</Typography>
+        <Typography variant="h4">Find a Movie to Add to the Theater</Typography>
         <Search handleInput ={handleInput} search = {search}/>
         <div className="row">
       {/* Passing Row title as text for h2 */}
-      <h2>Results</h2>
+      {state.movies.length > 0 &&
+        <Typography variant="h5">Search Results:</Typography>
+      }
+
       <div className="row_posters">
         {/* several row_poster(s) */}
         {state.movies.map((movie) => (
