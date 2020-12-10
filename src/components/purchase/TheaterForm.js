@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect} from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
@@ -60,7 +60,7 @@ export class TheaterForm extends Component {
     console.log({eligibleTheaterIDs: eligibleTheaterIds})
     const eligibleTheaters = [];
     values.availableTheaters.map((theater) => {if (eligibleTheaterIds.includes(theater.id)) eligibleTheaters.push(theater)})
-
+    
     return (
       <div>
         <>
@@ -92,7 +92,6 @@ export class TheaterForm extends Component {
               onClick={this.continue}
             >Next</Button>
             <GMap/>
-
             
         </>
       </div>
