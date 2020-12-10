@@ -100,7 +100,7 @@ const Hero = (props) => {
     });
   }
   return (
-    <Container  >
+    <Container fluid >
       <div class="filters">
         <Search handleInput ={handleInput} search = {search}></Search>
         <h3>Filters</h3>

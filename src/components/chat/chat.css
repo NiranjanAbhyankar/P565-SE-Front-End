@@ -79,8 +79,14 @@
     border: none;
     padding: 0 10px;
   }
+  .chatpage{
+    background-color: #282c34;
+  }
+  .chatform{
+    background-color: white;
+  }
   
-  button {
+  .chatbutton {
     background-color: #282c34; /* Green */
     border: none;
     color: white;
@@ -92,7 +98,7 @@
     font-size: 1.25rem;
   }
   
-  button:disabled {
+  .chatbutton:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }

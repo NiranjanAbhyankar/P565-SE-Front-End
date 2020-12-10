@@ -89,17 +89,17 @@ function SignIn() {
     }
   
     return (<>
-      <div >
+      <div className = "chatpage">
   
         {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
   
         <span ref={dummy}></span>
     
-        <form onSubmit={sendMessage}>
+        <form onSubmit={sendMessage} className= "chatform">
   
             <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type a message" />
     
-            <button type="submit" disabled={!formValue}>💬</button>
+            <button className = "chatbutton" type="submit" disabled={!formValue}>💬</button>
     
         </form>
         <p></p>
