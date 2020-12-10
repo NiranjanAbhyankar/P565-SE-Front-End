@@ -40,7 +40,7 @@ const  MAppBar = props =>{
     useEffect(() => {
       if(isAuthenticated){
         async function isManager(){
-          const accessToken = await getAccessTokenWithPopup({
+          const accessToken = await getAccessTokenSilently({
             audience: "MainAPI",
             scope: ""
           });

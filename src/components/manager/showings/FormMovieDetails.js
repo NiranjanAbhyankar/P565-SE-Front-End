@@ -34,8 +34,8 @@ export class FormMovieDetails extends Component {
         <>
 
             
-            <AppBar title="Enter Personal Details" />
-            <Typography>Choose a Movie to Add A Showing For:</Typography>
+            <Typography variant="h4">Choose a Movie to Add A Showing For:</Typography>
+            <br/>
             <Showings createShowing = {createShowing} />
 
 

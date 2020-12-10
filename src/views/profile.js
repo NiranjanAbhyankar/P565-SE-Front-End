@@ -16,7 +16,7 @@ const Profile = () => {
 
   useEffect(() => {
     async function isManager(){
-      const accessToken = await getAccessTokenWithPopup({
+      const accessToken = await getAccessTokenSilently({
         audience: "MainAPI",
         scope: ""
       });
@@ -36,7 +36,7 @@ const Profile = () => {
   
   
   async function makeCurrentUserAManager() {
-    const accessToken = await getAccessTokenWithPopup({
+    const accessToken = await getAccessTokenSilently({
       audience: "MainAPI",
       scope: ""
     });
