@@ -5,6 +5,7 @@ import { Highlight, Loading } from "../components";
 import axios from "axios";
 
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import DisplayOrders from "../components/user_profile/displayOrders";
 
 const Profile = () => {
   const { user, getAccessTokenSilently, getAccessTokenWithPopup} = useAuth0();
@@ -72,6 +73,8 @@ const Profile = () => {
       </Row>
       <Row>
         <h2>Purchase History</h2>
+        <br></br>
+        <DisplayOrders></DisplayOrders>
         
       { /** <Highlight>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>

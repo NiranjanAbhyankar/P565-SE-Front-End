@@ -67,7 +67,7 @@ export class ConcessionForm extends Component {
       <div>
             <AppBar title="Select Concessions" />
             <h3>Concessions available at {values.theaterInfo.name}</h3>
-            <List width={500}>
+            <List width={250} style= {{maxWidth: "500px"}}>
             {this.props.values.concessions.map((snack) => (
              <ListItem >
                {console.log(snack)}
@@ -76,6 +76,7 @@ export class ConcessionForm extends Component {
                
                <TextField
               placeholder={snack.quantity}
+              style={{maxWidth:"50px"}}
               label="Quantity"
               type="number"
               onChange={(e) => handleChange(snack.key)}
