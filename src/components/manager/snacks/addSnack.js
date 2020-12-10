@@ -24,15 +24,15 @@ function AddSnack() {
       };
      const handleChangeImage = (event) => {
       const fr = new FileReader()
-        fr.onloadend = () => setValues({ name: values.name, price: values.price, image: fr.result })
-        fr.readAsDataURL(event.target.files[0])
+      fr.onloadend = () => setValues({ name: values.name, price: values.price, image: fr.result })
+      fr.readAsDataURL(event.target.files[0])
       console.log(values);
     };
       
     function handleClick (){
       
       var array = [{
-        "id": '0',
+        "id": 0,
         "name": values.name,
         "price": values.price,
         "image": values.image,
