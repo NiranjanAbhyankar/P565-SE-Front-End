@@ -71,7 +71,7 @@ export class ConcessionForm extends Component {
             {this.props.values.concessions.map((snack) => (
              <ListItem >
                {console.log(snack)}
-               <img padding={10}  height = {50} src = {snack.image}/>
+               <img padding={10}  height = {50} className="snack_image" src = {snack.image}/>
                <ListItemText width={40} primary={snack.name} secondary={'$'+snack.price}></ListItemText>
                
                <TextField

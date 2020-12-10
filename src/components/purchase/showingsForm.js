@@ -47,7 +47,7 @@ export class ShowingsForm extends Component {
           <h1>What time would you like to view {values.movie.name} at {values.theaterInfo.name}? </h1>
 
 
-           <FormControl variant="filled" className={"salad"/*classes.formControl*/}>
+           <FormControl variant="filled" style={{minWidth: 120}} className={"salad"/*classes.formControl*/}>
               <InputLabel id="demo-simple-select-filled-label">Selected Showing</InputLabel>
               <Select
                   labelId="demo-simple-select-filled-label"
