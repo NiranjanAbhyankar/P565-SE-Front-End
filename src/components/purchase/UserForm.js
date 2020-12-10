@@ -6,6 +6,7 @@ import Success from './Success';
 import axios from "axios";
 import TheaterForm from "./TheaterForm"
 import Checkout from './BillInterface/Checkout';
+import ShowingsForm from './showingsForm';
 
 
 export class UserForm extends Component {
@@ -137,7 +138,14 @@ export class UserForm extends Component {
             values={values}
           />
         );
-      case 2:
+        case 2:
+          return <ShowingsForm 
+          nextStep={this.nextStep}
+          prevStep={this.prevStep}
+                  values = {values}
+                  handleChange = {this.handleChange}
+                  />; 
+      case 3:
         return (
           <TicketForm
             nextStep={this.nextStep}
@@ -147,7 +155,9 @@ export class UserForm extends Component {
             values={values}
           />
         );
-      case 3:
+
+        
+      case 4:
         return (
           <ConcessionForm
             nextStep={this.nextStep}
@@ -157,7 +167,9 @@ export class UserForm extends Component {
           />
         );
 
-      case 4:
+         
+
+      case 5:
         return <Checkout 
                 values = {values}
                 />;

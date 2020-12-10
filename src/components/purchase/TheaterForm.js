@@ -75,7 +75,6 @@ export class TheaterForm extends Component {
                 <Select
                     labelId="demo-simple-select-filled-label"
                     id="demo-simple-select-filled"
-                    value={values.theaterInfo}
                     onChange={handleChange('theaterInfo')}
                 >
 

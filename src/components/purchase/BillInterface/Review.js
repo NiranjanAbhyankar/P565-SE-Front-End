@@ -44,7 +44,7 @@ export default function Review(props) {
         return (
             <ListItem className={classes.listItem} key={snack.id}>
                 <ListItemText primary={snack.name} secondary={"x"+snack.quantity} />
-                <Typography className={classes.total}variant="subtitle1">{"$"+snack.price}</Typography>
+                <Typography className={classes.total}variant="subtitle1">{"$"+snack.price * snack.quantity}</Typography>
             </ListItem>)
     }
   }
