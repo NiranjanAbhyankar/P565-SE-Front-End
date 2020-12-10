@@ -12,6 +12,10 @@ export class TicketForm extends Component {
     e.preventDefault();
     this.props.nextStep();
   };
+  back = e => {
+    e.preventDefault();
+    this.props.prevStep();
+  };
 
   render() {
     const { values, handleChange } = this.props;
