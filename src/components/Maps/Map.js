@@ -9,8 +9,7 @@ const GMap = () => {
  
   // list of the marker object along with icon
   const markerList = [
-    { lat: 41.8781, lng: -87.6298 },
-    { lat: 37.773972, lng:  -122.431297 },
+    { lat: 41.8781, lng: -87.6298 }
   ]
  
   useEffect(() => {
