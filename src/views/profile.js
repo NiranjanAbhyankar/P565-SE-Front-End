@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from '@material-ui/core/Button';
 import { Highlight, Loading } from "../components";
@@ -7,26 +7,32 @@ import axios from "axios";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Profile = () => {
-  const { user, getAccessTokenSilently} = useAuth0();
+  const { user, getAccessTokenSilently, getAccessTokenWithPopup} = useAuth0();
   const { nickname, picture, email } = user;
-  async function isManager(){
-    const accessToken = await getAccessTokenSilently({
-      audience: "MainAPI",
-      scope: ""
-    });
-    let request = await axios({
-        url: 'https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager',
-        method: 'post',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + accessToken
-        }
-    });
-    console.log(request.data);
-    let x = request.data === 'True';
-    console.log(x);
-    return x;
-  };
+  const [values, setValues] = useState({
+    isManager: false
+  });
+
+  useEffect(() => {
+    async function isManager(){
+      const accessToken = await getAccessTokenSilently({
+        audience: "MainAPI",
+        scope: ""
+      });
+      let request = await axios({
+          url: 'https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager',
+          method: 'post',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + accessToken
+          }
+      });
+      let x = request.data === 'True';
+      setValues({isManager: x})
+    };
+    isManager();
+  }, ["https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager"]);
+  
   
   async function makeCurrentUserAManager() {
     const accessToken = await getAccessTokenSilently({
@@ -59,7 +65,8 @@ const Profile = () => {
         </Col>
         <Col md>
           <h2>{nickname}</h2>
-          {isManager() ? <p className="lead text-muted">Manager</p>:<p className="lead text-muted">Customer</p> }
+          {console.log(values.isManager)}
+          {values.isManager? <p className="lead text-muted">Manager</p>:<p className="lead text-muted">Customer</p> }
           <p className="lead text-muted">{email}</p>
         </Col>
       </Row>
@@ -68,7 +75,7 @@ const Profile = () => {
         
       { /** <Highlight>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>
-      {isManager() ? <Button>Add Theater</Button>:<Button size="small" color="primary" onClick={makeCurrentUserAManager}>Become A Manager </Button>
+      {values.isManager ? <Button>Add Theater</Button>:<Button size="small" color="primary" onClick={makeCurrentUserAManager}>Become A Manager </Button>
 }
     </Container>
   );

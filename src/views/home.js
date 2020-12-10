@@ -18,7 +18,7 @@ export class Home extends Component {
   render(){
     return(
       <Container fluid  className="home" >
-        <Hero slx = {this.props.selectedMovie} selectMovieApp = {this.props.selectMovieApp}></Hero>/>
+        <Hero slx = {this.props.selectedMovie} selectMovieApp = {this.props.selectMovieApp}></Hero>
       </Container>
     )
   }

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect} from "react";
 import { withRouter } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -31,14 +31,33 @@ const useStyles = makeStyles((theme) => ({
 
 const  MAppBar = props =>{
     const { history } = props;
-    const { isAuthenticated, loginWithRedirect, logout } =useAuth0();
+    const { isAuthenticated, loginWithRedirect, logout,  user, getAccessTokenSilently, getAccessTokenWithPopup } =useAuth0();
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
-    async function isManager(){
-      axios("https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager").then((request)=>{
-          return request.data;
-      })
-    };
+    const [values, setValues] = useState({
+      isManager: false
+    });
+    useEffect(() => {
+      if(isAuthenticated){
+        async function isManager(){
+          const accessToken = await getAccessTokenSilently({
+            audience: "MainAPI",
+            scope: ""
+          });
+          let request = await axios({
+              url: 'https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager',
+              method: 'post',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Bearer ' + accessToken
+              }
+          });
+          let x = request.data === 'True';
+          setValues({isManager: x})
+        };
+        isManager();
+      }
+    }, ["https://asdfghjklmnopqrstuvwxyz.herokuapp.com/api/isManager"]);
 
     const logInOut = (event) => {
         if (isAuthenticated){
@@ -67,7 +86,7 @@ const  MAppBar = props =>{
   };
 
     let menuItems;
-    if(isManager){
+    if(values.isManager){
       menuItems = <div>
       <MenuItem onClick={() => handleClose("profile")}>Profile</MenuItem>
       <MenuItem onClick={() => handleClose("/man-dashboard")}>Theaters</MenuItem>
