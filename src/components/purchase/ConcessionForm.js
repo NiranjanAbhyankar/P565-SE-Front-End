@@ -4,7 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { List, ListItem, ListItemText } from '@material-ui/core/';
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core/';
 import axios from "axios";
 
 
@@ -49,6 +49,7 @@ export class ConcessionForm extends Component {
         id: request.data[i].id,
         name: request.data[i].name,
         price: request.data[i].price,
+        image: request.data[i].image,
         quantity: 0,
         key: i,
       })
@@ -66,10 +67,13 @@ export class ConcessionForm extends Component {
       <div>
             <AppBar title="Select Concessions" />
             <h3>Concessions available at {values.theaterInfo.name}</h3>
-            <List>
+            <List width={500}>
             {this.props.values.concessions.map((snack) => (
-             <ListItem>
-               <ListItemText primary={snack.name} secondary={'$'+snack.price}></ListItemText>
+             <ListItem >
+               {console.log(snack)}
+               <img padding={10}  height = {50} src = {snack.image}/>
+               <ListItemText width={40} primary={snack.name} secondary={'$'+snack.price}></ListItemText>
+               
                <TextField
               placeholder={snack.quantity}
               label="Quantity"

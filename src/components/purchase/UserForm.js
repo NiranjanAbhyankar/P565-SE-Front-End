@@ -73,6 +73,7 @@ export class UserForm extends Component {
         id: request.data[i].id,
         name: request.data[i].name,
         price: request.data[i].price,
+        image: request.data[i].image,
         quantity: 0,
         key: i,
       })

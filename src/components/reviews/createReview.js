@@ -8,8 +8,23 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Input from '@material-ui/core/Input';
 import { DataGrid } from '@material-ui/data-grid';
 import StarRatingComponent from 'react-star-rating-component';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core/styles';
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 140,
+  },
+  paperStyle:{
+    background: "#d6dbe0",
+    padding: 30
+  },
+});
 
 function CreateReview() {
+    const classes = useStyles();
     const { getAccessTokenSilently } = useAuth0();
     const movie = JSON.parse(localStorage.getItem("selectedMovie"));
     const [values, setValues] = useState({
@@ -47,7 +62,8 @@ function CreateReview() {
 
     return (
         <div >
-        <Typography>Rate {movie.name}:</Typography>
+        <Paper className={classes.paperStyle}>
+        <Typography variant="h5">Rate {movie.name}:</Typography>
         <StarRatingComponent 
           name="rate1" 
           starCount={5}
@@ -65,11 +81,12 @@ function CreateReview() {
           variant="outlined"
           onChange={handleChange()}
         />
-        <br/>
+        <br/><br/>
         <Button variant="outlined"
            color="primary"
             onClick={handleClick}
-            >Submit</Button>
+            >Submit</Button> <br/>
+        </Paper>
         </div>
     )
 }

@@ -13,6 +13,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 
+
 export class TheaterForm extends Component {
 
   continue = e => {
@@ -34,8 +35,11 @@ export class TheaterForm extends Component {
     console.log({eligibLETHEATERS: eligibleTheaters})
     return eligibleTheaters;
   }
+  
 
   render() {
+
+
     const { values, handleChange } = this.props;
 
     const eligibleTheaterIds = this.getEligibleTheaterIds(values);
@@ -50,8 +54,8 @@ export class TheaterForm extends Component {
             <AppBar title="Enter User Details" />
             <h1>What theater would you like to view {values.movie.name} at? </h1>
   
- 
-             <FormControl variant="filled" className={"salad"/*classes.formControl*/}>
+           <br/>
+             <FormControl variant="filled"style={{minWidth: 120}} className={"salad"/*classes.formControl*/}>
                 <InputLabel id="demo-simple-select-filled-label">Selected Theater</InputLabel>
                 <Select
                     labelId="demo-simple-select-filled-label"
@@ -67,12 +71,13 @@ export class TheaterForm extends Component {
                 </Select>
             </FormControl>
 
-            <br />
+            <br /><br/>
             <Button
               color="primary"
               variant="contained"
               onClick={this.continue}
             >Next</Button>
+
             
         </>
       </div>
