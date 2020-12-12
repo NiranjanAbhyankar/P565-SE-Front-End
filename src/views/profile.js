@@ -6,6 +6,7 @@ import axios from "axios";
 
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import DisplayOrders from "../components/user_profile/displayOrders";
+import DisplayOrdersMan from "../components/user_profile/displayOrdersMan";
 
 const Profile = () => {
   const { user, getAccessTokenSilently, getAccessTokenWithPopup} = useAuth0();
@@ -74,7 +75,7 @@ const Profile = () => {
       <Row>
         <h2>Purchase History</h2>
         <br></br>
-        <DisplayOrders></DisplayOrders>
+        {values.isManager? <DisplayOrdersMan/>: <DisplayOrders></DisplayOrders>}
         
       { /** <Highlight>{JSON.stringify(user, null, 2)}</Highlight> */}
       </Row>

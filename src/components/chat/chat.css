@@ -80,7 +80,7 @@
     padding: 0 10px;
   }
   .chatpage{
-    background-color: #282c34;
+
   }
   .chatform{
     background-color: white;
@@ -90,7 +90,6 @@
     background-color: #282c34; /* Green */
     border: none;
     color: white;
-    padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -112,12 +111,12 @@
   }
   
   
-  
+/*   
   
   ul, li {
     text-align: left;
     list-style: none;
-  }
+  } */
   
   .para {
     max-width: 500px;
@@ -148,6 +147,9 @@
   .received p {
     background: #e5e5ea;
     color: black;
+  }
+  .image{
+      border-radius: 50%;
   }
   
   /* img {

@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 function CreateReview() {
     const classes = useStyles();
-    const { getAccessTokenSilently } = useAuth0();
+    const { getAccessTokenSilently, getAccessTokenWithPopup } = useAuth0();
     const movie = JSON.parse(localStorage.getItem("selectedMovie"));
     const [values, setValues] = useState({
         tmdbid: movie.tmdbid,

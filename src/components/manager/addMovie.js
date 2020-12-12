@@ -8,7 +8,7 @@ import Poster from "./Poster.js";
 import Typography from '@material-ui/core/Typography';
 import Popup from "./Popup.js";
 function AddMovie(){
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, getAccessTokenWithPopup } = useAuth0();
 
   const [state, setState] = useState({
     s: "",

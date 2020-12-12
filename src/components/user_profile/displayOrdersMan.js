@@ -76,7 +76,7 @@ function DisplayOrders() {
     
     const viewOrder = (order) => {
 
-        if(order.customer == user.sub){
+
             return(
                 <div>
                <p>{JSON.stringify(order)} </p>
@@ -84,7 +84,7 @@ function DisplayOrders() {
                </div>
               
             )
-        }
+        
     }
 
  
@@ -94,6 +94,8 @@ function DisplayOrders() {
     <Paper className={classes.paperStyle}>
             {orders.map((order) => (
              viewOrder(order)))}
+  
+        
     </Paper>
     </div>
   )

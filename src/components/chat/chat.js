@@ -91,15 +91,15 @@ function SignIn() {
     return (<>
       <div className = "chatpage">
   
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-  
-        <span ref={dummy}></span>
+        
+        <span ref={dummy}>{messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+  </span>
     
         <form onSubmit={sendMessage} className= "chatform">
   
             <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type a message" />
     
-            <button className = "chatbutton" type="submit" disabled={!formValue}>💬</button>
+            <button className = "chatbutton" type="submit" disabled={!formValue}>Send</button>
     
         </form>
         <p></p>
@@ -118,7 +118,7 @@ function SignIn() {
   
     return (<>
       <div className={`message ${messageClass}`}>
-        <img src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
+        <img className="image" src={photoURL || 'https://api.adorable.io/avatars/23/abott@adorable.png'} />
         <p class= "para">{text}</p>
       </div>
     </>)

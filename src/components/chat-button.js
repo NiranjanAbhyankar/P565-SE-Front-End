@@ -1,10 +1,15 @@
 import React from "react";
 import Chat from "./chat/chat"
+import Inbox from "./chat/inbox"
 
 
 const ChatButton = () => {
   return (
-    <Chat/>
+    <div>
+      <Inbox/>
+      {//<Chat/>
+      }
+    </div>
   );
 };
 

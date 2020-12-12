@@ -7,6 +7,7 @@ import ShowingForm from "./ShowingForm.js";
 import ManSnacks from "./man-snacks.js";
 import ManMovies from "./man-movies.js";
 import AboutMovie from "./about-movie.js";
+import Chat from "./chat.js";
 
 
-export { Home, Profile, AboutUs, ContactUs, ManDashboard, ShowingForm, ManSnacks, ManMovies, AboutMovie };
+export { Home, Profile, AboutUs, ContactUs, ManDashboard, ShowingForm, ManSnacks, ManMovies, AboutMovie, Chat };

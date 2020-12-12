@@ -92,8 +92,7 @@ const  MAppBar = props =>{
       <MenuItem onClick={() => handleClose("/man-dashboard")}>Theaters</MenuItem>
       <MenuItem onClick={() => handleClose("/man-movies")}>Add Movies</MenuItem>
       <MenuItem onClick={() => handleClose("/add-showings")}>Add Showings</MenuItem>
-      <MenuItem onClick={() => handleClose("/man-snacks")}>Snacks</MenuItem>
-      <MenuItem onClick={() => handleClose("/orders")}>Orders</MenuItem>
+      <MenuItem onClick={() => handleClose("/man-snacks")}>Add Snacks</MenuItem>
       <MenuItem onClick={() => handleClose("./chat-button")}>Chat</MenuItem>
       </div>;
     }
@@ -101,7 +100,6 @@ const  MAppBar = props =>{
       menuItems = <div>
       <MenuItem onClick={() => handleClose("/profile")}>Profile</MenuItem>
       <MenuItem onClick={() => handleClose("/home")}>Browse</MenuItem>
-      <MenuItem onClick={() => handleClose("/my-orders")}>Orders</MenuItem>
       <MenuItem onClick={() => handleClose("./chat-button")}>Chat</MenuItem>
       </div>;
     }
