@@ -1,4 +1,8 @@
-#   Easy User Authentication for React Apps
+#   Front end for ticketfaster in this repo
+https://github.com/NiranjanAbhyankar/P565-SE-Front-End
+
+#   Back end for ticketfaster in this repo
+https://github.com/subraizada3/seproject
 
 ## Get Started
 
@@ -14,5 +18,4 @@ Run the project:
 yarn start
 ```
 
-Test Commit
-Second Test Commit
+
